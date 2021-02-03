@@ -1,10 +1,14 @@
 package com.codegym.airbnb.model.entities;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
 @Table
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,property = "id")
 public class Roomtype {
     private int id;
     private String name;
@@ -29,7 +33,7 @@ public class Roomtype {
     }
 
 
-    @OneToMany(mappedBy = "roomtype", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "roomtype")
     public List<Home> getHomes() {
         return homes;
     }

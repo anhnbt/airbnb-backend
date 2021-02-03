@@ -1,17 +1,43 @@
 package com.codegym.airbnb.model.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import org.hibernate.validator.constraints.UniqueElements;
+
 import javax.persistence.*;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 import java.util.List;
 
 @Entity
 @Table
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,property = "id")
 public class Home {
     private int id;
+
+    @NotEmpty(message = "Cannot be empty")
+    @UniqueElements(message = "This account existed !")
+    @Size(max = 24)
     private String name;
+
     private String description;
+
+    @NotEmpty(message = "Cannot be empty")
+    @Size(max = 200)
     private String address;
+
+    @NotEmpty(message = "Cannot be empty")
+    @Min(value = 1)
     private float pricePerNight;
+
+    @NotEmpty(message = "Cannot be empty")
+    @Min(value = 1)
     private byte numBedrooms;
+
+    @NotEmpty(message = "Cannot be empty")
+    @Min(value = 1)
     private byte numBathrooms;
 
     private List<Booking> bookings;
@@ -85,7 +111,7 @@ public class Home {
     }
 
 
-    @OneToMany(mappedBy = "home", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "home")
     public List<Booking> getBookings() {
         return bookings;
     }
@@ -94,7 +120,7 @@ public class Home {
         this.bookings = bookingById;
     }
 
-    @OneToMany(mappedBy = "home", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "home")
     public List<Image> getImages() {
         return images;
     }
@@ -103,7 +129,8 @@ public class Home {
         this.images = images;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY)
+//    @JsonBackReference
+    @ManyToOne
     @JoinColumn(name = "user_id")
     public User getUser() {
         return user;
@@ -113,7 +140,8 @@ public class Home {
         this.user = user;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY)
+//    @JsonBackReference
+    @ManyToOne
     @JoinColumn(name = "city_id")
     public City getCity() {
         return city;
@@ -123,7 +151,8 @@ public class Home {
         this.city = cityByCityId;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY)
+//    @JsonBackReference
+    @ManyToOne
     @JoinColumn(name = "roomtype_id")
     public Roomtype getRoomtype() {
         return roomtype;

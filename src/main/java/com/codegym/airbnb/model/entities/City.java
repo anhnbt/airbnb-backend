@@ -1,12 +1,15 @@
 package com.codegym.airbnb.model.entities;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
 @Table
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,property = "id")
 public class City {
     private int id;
     private String name;
@@ -33,8 +36,8 @@ public class City {
     }
 
 
-    @JsonBackReference
-    @ManyToOne(fetch = FetchType.LAZY)
+//    @JsonBackReference
+    @ManyToOne
     @JoinColumn(name = "country_id")
     public Country getCountry() {
         return country;
@@ -44,7 +47,7 @@ public class City {
         this.country = country;
     }
 
-    @OneToMany(mappedBy = "city", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "city")
     public List<Home> getHomes() {
         return homes;
     }

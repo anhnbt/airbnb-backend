@@ -1,10 +1,15 @@
 package com.codegym.airbnb.model.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
 
 @Entity
 @Table
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,property = "id")
 public class Review {
     private int id;
     private byte rating;
@@ -66,7 +71,8 @@ public class Review {
     }
 
 
-    @ManyToOne(fetch = FetchType.LAZY)
+//    @JsonBackReference
+    @ManyToOne
     @JoinColumn(name = "booking_id")
     public Booking getBooking() {
         return booking;

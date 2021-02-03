@@ -1,9 +1,14 @@
 package com.codegym.airbnb.model.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import javax.persistence.*;
 
 @Entity
 @Table
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,property = "id")
 public class Image {
     private int id;
     private String imageUrl;
@@ -28,9 +33,9 @@ public class Image {
         this.imageUrl = imageUrl;
     }
 
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "home_id",updatable = false, insertable = false)
+//    @JsonBackReference
+    @ManyToOne
+    @JoinColumn(name = "home_id")
     public Home getHome() {
         return home;
     }

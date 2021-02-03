@@ -1,5 +1,8 @@
 package com.codegym.airbnb.model.entities;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import javax.persistence.*;
 import java.sql.Date;
 import java.sql.Timestamp;
@@ -7,6 +10,7 @@ import java.util.List;
 
 @Table
 @Entity
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,property = "id")
 public class User {
     private int id;
     private String name;
@@ -107,7 +111,7 @@ public class User {
     }
 
 
-    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user")
     public List<Booking> getBookings() {
         return bookings;
     }
@@ -125,7 +129,7 @@ public class User {
 //        this.roles = roles;
 //    }
 
-    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user")
     public List<Home> getHomes() {
         return homes;
     }
