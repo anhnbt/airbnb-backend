@@ -1,5 +1,7 @@
 package com.codegym.airbnb.model.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -31,6 +33,7 @@ public class City {
     }
 
 
+    @JsonBackReference
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "country_id")
     public Country getCountry() {
