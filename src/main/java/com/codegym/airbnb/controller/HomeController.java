@@ -26,6 +26,13 @@ public class HomeController {
         return res;
     }
 
+    @GetMapping("/{id}")
+    public Response getOne(@PathVariable int id) {
+        res.setData(homeService.getOne(id));
+        res.setMessage("SUCCESS");
+        res.setStatus(HttpStatus.OK);
+        return res;
+    }
 
     @PostMapping
     public Response createPost(@RequestBody Home home) {
@@ -34,5 +41,4 @@ public class HomeController {
         res.setStatus(HttpStatus.OK);
         return res;
     }
-
 }
