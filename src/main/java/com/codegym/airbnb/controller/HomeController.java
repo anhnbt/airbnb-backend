@@ -26,6 +26,7 @@ public class HomeController {
         return res;
     }
 
+
     @PostMapping
     public Response createPost(@RequestBody Home home) {
         res.setData(homeService.save(home));
