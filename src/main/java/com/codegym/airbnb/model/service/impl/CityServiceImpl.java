@@ -1,6 +1,6 @@
 package com.codegym.airbnb.model.service.impl;
 
-import com.codegym.airbnb.model.entities.City;
+import com.codegym.airbnb.model.entities.Province;
 import com.codegym.airbnb.model.repository.CityRepository;
 import com.codegym.airbnb.model.service.CityService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,24 +14,24 @@ public class CityServiceImpl implements CityService {
     private CityRepository cityRepository;
 
     @Override
-    public Iterable<City> getAll() {
+    public Iterable<Province> getAll() {
         return cityRepository.findAll();
     }
 
     @Override
-    public Optional<City> getOne(int id) {
+    public Optional<Province> getOne(int id) {
         return cityRepository.findById(id);
     }
 
     @Override
-    public City save(City city) {
-        return cityRepository.save(city);
+    public Province save(Province province) {
+        return cityRepository.save(province);
     }
 
     @Override
-    public City delete(int id) {
-        City city = cityRepository.findById(id).get();
+    public Province delete(int id) {
+        Province province = cityRepository.findById(id).get();
         cityRepository.deleteById(id);
-        return city;
+        return province;
     }
 }

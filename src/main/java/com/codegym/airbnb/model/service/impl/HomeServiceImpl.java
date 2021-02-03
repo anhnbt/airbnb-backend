@@ -1,6 +1,6 @@
 package com.codegym.airbnb.model.service.impl;
 
-import com.codegym.airbnb.model.entities.Home;
+import com.codegym.airbnb.model.entities.Room;
 import com.codegym.airbnb.model.repository.HomeRepository;
 import com.codegym.airbnb.model.service.HomeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,23 +14,33 @@ public class HomeServiceImpl implements HomeService {
     private HomeRepository homeRepository;
 
     @Override
-    public Iterable<Home> getAll() {
+    public Iterable<Room> findAll() {
         return homeRepository.findAll();
     }
 
     @Override
-    public Optional<Home> getOne(int id) {
+    public Iterable<Room> findAllCustomQuery() {
+        return homeRepository.findAllCustomQuery();
+    }
+
+    @Override
+    public Optional<Room> findById(Long id) {
         return homeRepository.findById(id);
     }
 
     @Override
-    public Home save(Home home) {
-        return homeRepository.save(home);
+    public Optional<Room> findByHomeId(Long id) {
+        return homeRepository.findByHomeId(id);
     }
 
     @Override
-    public Home delete(int id) {
-        Home home = homeRepository.findById(id).get();
+    public Room save(Room room) {
+        return homeRepository.save(room);
+    }
+
+    @Override
+    public Optional<Room> deleteById(Long id) {
+        Optional<Room> home = homeRepository.findById(id);
         homeRepository.deleteById(id);
         return home;
     }

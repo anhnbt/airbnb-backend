@@ -1,13 +1,12 @@
 package com.codegym.airbnb.model.service;
 
-import com.codegym.airbnb.model.entities.City;
-import com.codegym.airbnb.model.entities.Home;
+import com.codegym.airbnb.model.entities.Province;
 
 import java.util.Optional;
 
 public interface CityService {
-    Iterable<City> getAll();
-    Optional<City> getOne(int id);
-    City save(City city);
-    City delete(int id);
+    Iterable<Province> getAll();
+    Optional<Province> getOne(int id);
+    Province save(Province province);
+    Province delete(int id);
 }

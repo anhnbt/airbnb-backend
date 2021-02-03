@@ -1,36 +1,45 @@
 package com.codegym.airbnb.model.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
+import java.io.Serializable;
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.List;
 
-@Table
 @Entity
-public class User {
-    private int id;
+@Table(name = "users")
+public class User implements Serializable {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private String name;
+    @Column(unique = true)
     private String email;
+    @JsonIgnore
     private String password;
     private Byte gender;
-    private Date birthday;
+    private Date dateOfBirth;
     private String phone;
-    private Byte status;
+    private Boolean active;
     private Timestamp createdAt;
     private Timestamp updatedAt;
 
-
+    @OneToMany(cascade = CascadeType.REMOVE, orphanRemoval = true)
+    @JoinColumn(name = "booking_id")
+    @JsonIgnore
     private List<Booking> bookings;
-//    private List<Role> roles;
-    private List<Home> homes;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public int getId() {
+    @OneToMany(mappedBy = "user")
+    @JsonIgnore
+    private List<Room> rooms;
+
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -66,12 +75,12 @@ public class User {
         this.gender = gender;
     }
 
-    public Date getBirthday() {
-        return birthday;
+    public Date getDateOfBirth() {
+        return dateOfBirth;
     }
 
-    public void setBirthday(Date birthday) {
-        this.birthday = birthday;
+    public void setDateOfBirth(Date dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
     }
 
     public String getPhone() {
@@ -82,12 +91,12 @@ public class User {
         this.phone = phone;
     }
 
-    public Byte getStatus() {
-        return status;
+    public Boolean getActive() {
+        return active;
     }
 
-    public void setStatus(Byte status) {
-        this.status = status;
+    public void setActive(Boolean active) {
+        this.active = active;
     }
 
     public Timestamp getCreatedAt() {
@@ -106,8 +115,6 @@ public class User {
         this.updatedAt = updatedAt;
     }
 
-
-    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     public List<Booking> getBookings() {
         return bookings;
     }
@@ -116,21 +123,11 @@ public class User {
         this.bookings = bookings;
     }
 
-//    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-//    public List<Role> getRoles() {
-//        return roles;
-//    }
-//
-//    public void setRoles(List<Role> roles) {
-//        this.roles = roles;
-//    }
-
-    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    public List<Home> getHomes() {
-        return homes;
+    public List<Room> getRooms() {
+        return rooms;
     }
 
-    public void setHomes(List<Home> homes) {
-        this.homes = homes;
+    public void setRooms(List<Room> rooms) {
+        this.rooms = rooms;
     }
 }
