@@ -1,4 +1,4 @@
-package com.codegym.airbnb.model.entities;
+package com.codegym.airbnb.model;
 
 import javax.persistence.*;
 import java.io.Serializable;

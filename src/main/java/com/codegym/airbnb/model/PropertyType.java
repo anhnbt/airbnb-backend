@@ -1,4 +1,4 @@
-package com.codegym.airbnb.model.entities;
+package com.codegym.airbnb.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 

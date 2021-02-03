@@ -1,8 +1,8 @@
-package com.codegym.airbnb.model.service.impl;
+package com.codegym.airbnb.services.impl;
 
-import com.codegym.airbnb.model.entities.Room;
-import com.codegym.airbnb.model.repository.HomeRepository;
-import com.codegym.airbnb.model.service.HomeService;
+import com.codegym.airbnb.model.Room;
+import com.codegym.airbnb.repositories.HomeRepository;
+import com.codegym.airbnb.services.HomeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

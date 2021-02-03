@@ -1,6 +1,6 @@
-package com.codegym.airbnb.model.service;
+package com.codegym.airbnb.services;
 
-import com.codegym.airbnb.model.entities.Room;
+import com.codegym.airbnb.model.Room;
 
 import java.util.Optional;
 
