@@ -9,28 +9,28 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("api/homes")
+@RequestMapping("api/v1/rooms")
 @CrossOrigin("*")
 public class HomeController {
 
     @Autowired
     private HomeService homeService;
 
-    Response res = new Response();
-
     // Cho nay anh Duy viet
     @GetMapping
     public Response home() {
-        res.setData(homeService.getAll());
+        Response res = new Response();
+        res.setData(homeService.findAll());
         // Fix lai trả về dữ liệu có phân trang.
         res.setMessage("SUCCESS");
         res.setStatus(HttpStatus.OK);
         return res;
     }
 
-    @GetMapping("/{id}")
-    public Response getOne(@PathVariable int id) {
-        res.setData(homeService.getOne(id));
+    @GetMapping("{id}")
+    public Response findById(@PathVariable("id") Long id) {
+        Response res = new Response();
+        res.setData(homeService.findById(id));
         res.setMessage("SUCCESS");
         res.setStatus(HttpStatus.OK);
         return res;
@@ -38,6 +38,7 @@ public class HomeController {
 
     @PostMapping
     public Response createPost(@RequestBody Home home) {
+        Response res = new Response();
         res.setData(homeService.save(home));
         res.setMessage("SUCCESS");
         res.setStatus(HttpStatus.OK);

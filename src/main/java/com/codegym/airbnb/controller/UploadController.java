@@ -37,7 +37,7 @@ public class UploadController {
             logger.warn("ANHNBT-EXCEPTION: ", e);
         }
         Home home = new Home();
-        home.setId(1);
+        home.setId(1L);
         image.setHome(home);
         return new Response(image, "success", HttpStatus.OK);
     }

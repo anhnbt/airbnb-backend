@@ -6,9 +6,13 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 
 public interface HomeService {
-    Iterable<Home> getAll();
-    Optional<Home> getOne(int id);
+
+    Iterable<Home> findAll();
+
+    Optional<Home> findById(Long id);
+
     Home save(Home home);
-    Home delete(int id);
+
+    Optional<Home> deleteById(Long id);
 
 }

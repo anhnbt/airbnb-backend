@@ -14,12 +14,12 @@ public class HomeServiceImpl implements HomeService {
     private HomeRepository homeRepository;
 
     @Override
-    public Iterable<Home> getAll() {
+    public Iterable<Home> findAll() {
         return homeRepository.findAll();
     }
 
     @Override
-    public Optional<Home> getOne(int id) {
+    public Optional<Home> findById(Long id) {
         return homeRepository.findById(id);
     }
 
@@ -29,8 +29,8 @@ public class HomeServiceImpl implements HomeService {
     }
 
     @Override
-    public Home delete(int id) {
-        Home home = homeRepository.findById(id).get();
+    public Optional<Home> deleteById(Long id) {
+        Optional<Home> home = homeRepository.findById(id);
         homeRepository.deleteById(id);
         return home;
     }
