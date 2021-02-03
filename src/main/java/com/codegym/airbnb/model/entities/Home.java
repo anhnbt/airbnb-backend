@@ -4,8 +4,8 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "places")
-public class Place {
+@Table
+public class Home {
     private int id;
     private String name;
     private String description;
@@ -16,13 +16,12 @@ public class Place {
 
     private List<Booking> bookings;
     private List<Image> images;
-    private Host host;
+    private User user;
     private City city;
-    private Category category;
+    private Roomtype roomtype;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
     public int getId() {
         return id;
     }
@@ -31,8 +30,7 @@ public class Place {
         this.id = id;
     }
 
-    @Basic
-    @Column(name = "name")
+
     public String getName() {
         return name;
     }
@@ -41,8 +39,7 @@ public class Place {
         this.name = name;
     }
 
-    @Basic
-    @Column(name = "description")
+
     public String getDescription() {
         return description;
     }
@@ -51,8 +48,7 @@ public class Place {
         this.description = description;
     }
 
-    @Basic
-    @Column(name = "address")
+
     public String getAddress() {
         return address;
     }
@@ -61,8 +57,7 @@ public class Place {
         this.address = address;
     }
 
-    @Basic
-    @Column(name = "price_per_night")
+
     public float getPricePerNight() {
         return pricePerNight;
     }
@@ -71,8 +66,7 @@ public class Place {
         this.pricePerNight = pricePerNight;
     }
 
-    @Basic
-    @Column(name = "num_bedrooms")
+
     public byte getNumBedrooms() {
         return numBedrooms;
     }
@@ -81,8 +75,7 @@ public class Place {
         this.numBedrooms = numBedrooms;
     }
 
-    @Basic
-    @Column(name = "num_bathrooms")
+
     public byte getNumBathrooms() {
         return numBathrooms;
     }
@@ -92,8 +85,7 @@ public class Place {
     }
 
 
-
-    @OneToMany(mappedBy = "place", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "home", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     public List<Booking> getBookings() {
         return bookings;
     }
@@ -102,27 +94,27 @@ public class Place {
         this.bookings = bookingById;
     }
 
-    @OneToMany(mappedBy = "place", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "home", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     public List<Image> getImages() {
         return images;
     }
 
-    public void setImages(List<Image> imageById) {
-        this.images = imageById;
+    public void setImages(List<Image> images) {
+        this.images = images;
     }
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "host_id", referencedColumnName = "id", nullable = false)
-    public Host getHost() {
-        return host;
+    @JoinColumn(name = "user_id", nullable = false)
+    public User getUser() {
+        return user;
     }
 
-    public void setHost(Host hostByHostId) {
-        this.host = hostByHostId;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "city_id", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "city_id", nullable = false)
     public City getCity() {
         return city;
     }
@@ -132,12 +124,12 @@ public class Place {
     }
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "category_id", referencedColumnName = "id", nullable = false)
-    public Category getCategory() {
-        return category;
+    @JoinColumn(name = "roomtype_id", nullable = false)
+    public Roomtype getRoomtype() {
+        return roomtype;
     }
 
-    public void setCategory(Category categoryByCategoryId) {
-        this.category = categoryByCategoryId;
+    public void setRoomtype(Roomtype roomtype) {
+        this.roomtype = roomtype;
     }
 }

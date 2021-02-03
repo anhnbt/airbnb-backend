@@ -17,12 +17,11 @@ public class Booking {
     private Timestamp updatedAt;
 
     private User user;
-    private Place place;
+    private Home home;
     private List<Review> reviews;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
     public int getId() {
         return id;
     }
@@ -31,8 +30,7 @@ public class Booking {
         this.id = id;
     }
 
-    @Basic
-    @Column(name = "start_date")
+
     public Date getStartDate() {
         return startDate;
     }
@@ -41,8 +39,7 @@ public class Booking {
         this.startDate = startDate;
     }
 
-    @Basic
-    @Column(name = "end_date")
+
     public Date getEndDate() {
         return endDate;
     }
@@ -51,8 +48,7 @@ public class Booking {
         this.endDate = endDate;
     }
 
-    @Basic
-    @Column(name = "num_nights")
+
     public int getNumNights() {
         return numNights;
     }
@@ -61,8 +57,7 @@ public class Booking {
         this.numNights = numNights;
     }
 
-    @Basic
-    @Column(name = "status")
+
     public Byte getStatus() {
         return status;
     }
@@ -71,8 +66,7 @@ public class Booking {
         this.status = status;
     }
 
-    @Basic
-    @Column(name = "created_at")
+
     public Timestamp getCreatedAt() {
         return createdAt;
     }
@@ -81,8 +75,6 @@ public class Booking {
         this.createdAt = createdAt;
     }
 
-    @Basic
-    @Column(name = "updated_at")
     public Timestamp getUpdatedAt() {
         return updatedAt;
     }
@@ -94,7 +86,7 @@ public class Booking {
 
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "user_id", nullable = false)
     public User getUser() {
         return user;
     }
@@ -104,13 +96,13 @@ public class Booking {
     }
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "place_id", referencedColumnName = "id", nullable = false)
-    public Place getPlace() {
-        return place;
+    @JoinColumn(name = "home_id", nullable = false)
+    public Home getHome() {
+        return home;
     }
 
-    public void setPlace(Place placeByPlaceId) {
-        this.place = placeByPlaceId;
+    public void setHome(Home placeByHomeId) {
+        this.home = placeByHomeId;
     }
 
     @OneToMany(mappedBy = "booking", fetch = FetchType.LAZY, cascade = CascadeType.ALL)

@@ -4,15 +4,14 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "categories")
-public class Category {
+@Table
+public class Roomtype {
     private int id;
     private String name;
-    private List<Place> places;
+    private List<Home> homes;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
     public int getId() {
         return id;
     }
@@ -21,8 +20,6 @@ public class Category {
         this.id = id;
     }
 
-    @Basic
-    @Column(name = "name")
     public String getName() {
         return name;
     }
@@ -32,13 +29,12 @@ public class Category {
     }
 
 
-
-    @OneToMany(mappedBy = "category", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    public List<Place> getPlaces() {
-        return places;
+    @OneToMany(mappedBy = "roomtype", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    public List<Home> getHomes() {
+        return homes;
     }
 
-    public void setPlaces(List<Place> places) {
-        this.places = places;
+    public void setHomes(List<Home> homes) {
+        this.homes = homes;
     }
 }

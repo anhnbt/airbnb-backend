@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 
 @Entity
-@Table(name = "reviews")
+@Table
 public class Review {
     private int id;
     private byte rating;
@@ -17,7 +17,6 @@ public class Review {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
     public int getId() {
         return id;
     }
@@ -26,8 +25,6 @@ public class Review {
         this.id = id;
     }
 
-    @Basic
-    @Column(name = "rating")
     public byte getRating() {
         return rating;
     }
@@ -36,8 +33,6 @@ public class Review {
         this.rating = rating;
     }
 
-    @Basic
-    @Column(name = "review_body")
     public String getReviewBody() {
         return reviewBody;
     }
@@ -46,8 +41,6 @@ public class Review {
         this.reviewBody = reviewBody;
     }
 
-    @Basic
-    @Column(name = "status")
     public Byte getStatus() {
         return status;
     }
@@ -56,8 +49,6 @@ public class Review {
         this.status = status;
     }
 
-    @Basic
-    @Column(name = "created_at")
     public Timestamp getCreatedAt() {
         return createdAt;
     }
@@ -66,8 +57,6 @@ public class Review {
         this.createdAt = createdAt;
     }
 
-    @Basic
-    @Column(name = "updated_at")
     public Timestamp getUpdatedAt() {
         return updatedAt;
     }
@@ -77,13 +66,13 @@ public class Review {
     }
 
 
-    @ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name = "booking_id", referencedColumnName = "id", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "booking_id", nullable = false)
     public Booking getBooking() {
         return booking;
     }
 
-    public void setBooking(Booking bookingByBookingId) {
-        this.booking = bookingByBookingId;
+    public void setBooking(Booking booking) {
+        this.booking = booking;
     }
 }
