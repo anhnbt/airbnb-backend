@@ -67,7 +67,7 @@ public class Review {
 
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "booking_id", nullable = false)
+    @JoinColumn(name = "booking_id")
     public Booking getBooking() {
         return booking;
     }

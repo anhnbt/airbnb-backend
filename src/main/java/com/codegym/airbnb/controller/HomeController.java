@@ -1,19 +1,37 @@
 package com.codegym.airbnb.controller;
 
 import com.codegym.airbnb.model.Response;
+import com.codegym.airbnb.model.entities.Home;
+import com.codegym.airbnb.model.service.HomeService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
+@RequestMapping("api/homes")
+@CrossOrigin("*")
 public class HomeController {
 
-    @GetMapping("/")
+    @Autowired
+    private HomeService homeService;
+
+    Response res = new Response();
+
+    @GetMapping
     public Response home() {
-        Response response = new Response("Hello", "success", HttpStatus.OK);
-        return response;
+        res.setData(homeService.getAll());
+        res.setMessage("SUCCESS");
+        res.setStatus(HttpStatus.OK);
+        return res;
+    }
+
+    @PostMapping
+    public Response createPost(@RequestBody Home home) {
+        res.setData(homeService.save(home));
+        res.setMessage("SUCCESS");
+        res.setStatus(HttpStatus.OK);
+        return res;
     }
 
 }

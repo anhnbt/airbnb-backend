@@ -6,7 +6,7 @@ import java.sql.Timestamp;
 import java.util.List;
 
 @Entity
-@Table(name = "bookings")
+@Table
 public class Booking {
     private int id;
     private Date startDate;
@@ -86,7 +86,7 @@ public class Booking {
 
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", nullable = false)
+    @JoinColumn(name = "user_id")
     public User getUser() {
         return user;
     }
@@ -96,7 +96,7 @@ public class Booking {
     }
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "home_id", nullable = false)
+    @JoinColumn(name = "home_id")
     public Home getHome() {
         return home;
     }

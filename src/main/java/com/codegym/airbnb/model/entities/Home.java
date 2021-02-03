@@ -104,7 +104,7 @@ public class Home {
     }
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", nullable = false)
+    @JoinColumn(name = "user_id")
     public User getUser() {
         return user;
     }
@@ -114,7 +114,7 @@ public class Home {
     }
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "city_id", nullable = false)
+    @JoinColumn(name = "city_id")
     public City getCity() {
         return city;
     }
@@ -124,7 +124,7 @@ public class Home {
     }
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "roomtype_id", nullable = false)
+    @JoinColumn(name = "roomtype_id")
     public Roomtype getRoomtype() {
         return roomtype;
     }
