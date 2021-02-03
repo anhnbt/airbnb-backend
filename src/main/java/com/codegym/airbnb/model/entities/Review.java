@@ -1,35 +1,38 @@
 package com.codegym.airbnb.model.entities;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.sql.Timestamp;
 
 @Entity
-@Table
-public class Review {
-    private int id;
-    private byte rating;
+@Table(name = "reviews")
+public class Review implements Serializable {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    private Byte rating;
     private String reviewBody;
-    private Byte status;
+    private Boolean active;
     private Timestamp createdAt;
     private Timestamp updatedAt;
 
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "booking_id", nullable = false, updatable = false)
     private Booking booking;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public byte getRating() {
+    public Byte getRating() {
         return rating;
     }
 
-    public void setRating(byte rating) {
+    public void setRating(Byte rating) {
         this.rating = rating;
     }
 
@@ -41,12 +44,12 @@ public class Review {
         this.reviewBody = reviewBody;
     }
 
-    public Byte getStatus() {
-        return status;
+    public Boolean getActive() {
+        return active;
     }
 
-    public void setStatus(Byte status) {
-        this.status = status;
+    public void setActive(Boolean active) {
+        this.active = active;
     }
 
     public Timestamp getCreatedAt() {
@@ -65,9 +68,6 @@ public class Review {
         this.updatedAt = updatedAt;
     }
 
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "booking_id")
     public Booking getBooking() {
         return booking;
     }

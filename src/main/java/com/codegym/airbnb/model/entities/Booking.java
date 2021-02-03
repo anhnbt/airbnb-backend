@@ -1,35 +1,46 @@
- package com.codegym.airbnb.model.entities;
+package com.codegym.airbnb.model.entities;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.sql.Date;
 import java.sql.Timestamp;
-import java.util.List;
 
 @Entity
-@Table
-public class Booking {
-    private int id;
+@Table(name = "bookings")
+public class Booking implements Serializable {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    private Integer numNights;
     private Date startDate;
     private Date endDate;
-    private int numNights;
     private Byte status;
     private Timestamp createdAt;
     private Timestamp updatedAt;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
     private User user;
-    private Home home;
-    private List<Review> reviews;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public int getId() {
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "room_id")
+    private Room room;
+
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
+    public Integer getNumNights() {
+        return numNights;
+    }
+
+    public void setNumNights(Integer numNights) {
+        this.numNights = numNights;
+    }
 
     public Date getStartDate() {
         return startDate;
@@ -39,7 +50,6 @@ public class Booking {
         this.startDate = startDate;
     }
 
-
     public Date getEndDate() {
         return endDate;
     }
@@ -48,16 +58,6 @@ public class Booking {
         this.endDate = endDate;
     }
 
-
-    public int getNumNights() {
-        return numNights;
-    }
-
-    public void setNumNights(int numNights) {
-        this.numNights = numNights;
-    }
-
-
     public Byte getStatus() {
         return status;
     }
@@ -65,7 +65,6 @@ public class Booking {
     public void setStatus(Byte status) {
         this.status = status;
     }
-
 
     public Timestamp getCreatedAt() {
         return createdAt;
@@ -83,34 +82,19 @@ public class Booking {
         this.updatedAt = updatedAt;
     }
 
-
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
     public User getUser() {
         return user;
     }
 
-    public void setUser(User userByUserId) {
-        this.user = userByUserId;
+    public void setUser(User user) {
+        this.user = user;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "home_id")
-    public Home getHome() {
-        return home;
+    public Room getRoom() {
+        return room;
     }
 
-    public void setHome(Home placeByHomeId) {
-        this.home = placeByHomeId;
-    }
-
-    @OneToMany(mappedBy = "booking", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    public List<Review> getReviews() {
-        return reviews;
-    }
-
-    public void setReviews(List<Review> reviews) {
-        this.reviews = reviews;
+    public void setRoom(Room room) {
+        this.room = room;
     }
 }

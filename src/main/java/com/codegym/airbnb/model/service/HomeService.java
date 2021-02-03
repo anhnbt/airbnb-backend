@@ -1,18 +1,21 @@
 package com.codegym.airbnb.model.service;
 
-import com.codegym.airbnb.model.entities.Home;
-import org.springframework.stereotype.Service;
+import com.codegym.airbnb.model.entities.Room;
 
 import java.util.Optional;
 
 public interface HomeService {
 
-    Iterable<Home> findAll();
+    Iterable<Room> findAll();
 
-    Optional<Home> findById(Long id);
+    Iterable<Room> findAllCustomQuery();
 
-    Home save(Home home);
+    Optional<Room> findById(Long id);
 
-    Optional<Home> deleteById(Long id);
+    Optional<Room> findByHomeId(Long id);
+
+    Room save(Room room);
+
+    Optional<Room> deleteById(Long id);
 
 }
