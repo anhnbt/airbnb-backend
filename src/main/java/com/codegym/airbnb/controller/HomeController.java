@@ -18,9 +18,11 @@ public class HomeController {
 
     Response res = new Response();
 
+    // Cho nay anh Duy viet
     @GetMapping
     public Response home() {
         res.setData(homeService.getAll());
+        // Fix lai trả về dữ liệu có phân trang.
         res.setMessage("SUCCESS");
         res.setStatus(HttpStatus.OK);
         return res;
