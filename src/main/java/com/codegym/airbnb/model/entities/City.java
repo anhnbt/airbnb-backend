@@ -1,16 +1,16 @@
 package com.codegym.airbnb.model.entities;
 
 import javax.persistence.*;
-import java.util.Collection;
 import java.util.List;
 
 @Entity
-public class Cities {
+@Table(name = "cities")
+public class City {
     private int id;
     private String name;
 
-    private Countries country;
-    private List<Places> places;
+    private Country country;
+    private List<Place> places;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -36,20 +36,20 @@ public class Cities {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "country_id", referencedColumnName = "id", nullable = false)
-    public Countries getCountry() {
+    public Country getCountry() {
         return country;
     }
 
-    public void setCountry(Countries country) {
+    public void setCountry(Country country) {
         this.country = country;
     }
 
     @OneToMany(mappedBy = "city", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    public List<Places> getPlaces() {
+    public List<Place> getPlaces() {
         return places;
     }
 
-    public void setPlaces(List<Places> places) {
+    public void setPlaces(List<Place> places) {
         this.places = places;
     }
 }

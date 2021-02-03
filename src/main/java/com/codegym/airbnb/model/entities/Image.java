@@ -3,11 +3,11 @@ package com.codegym.airbnb.model.entities;
 import javax.persistence.*;
 
 @Entity
-@Table
-public class Images {
+@Table(name = "images")
+public class Image {
     private int id;
     private String imageUrl;
-    private Places place;
+    private Place place;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,11 +33,11 @@ public class Images {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "place_id", referencedColumnName = "id", nullable = false, updatable = false, insertable = false)
-    public Places getPlace() {
+    public Place getPlace() {
         return place;
     }
 
-    public void setPlace(Places placesById) {
-        this.place = placesById;
+    public void setPlace(Place placeById) {
+        this.place = placeById;
     }
 }

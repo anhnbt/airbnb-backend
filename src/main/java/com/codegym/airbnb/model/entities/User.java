@@ -6,8 +6,8 @@ import java.sql.Timestamp;
 import java.util.List;
 
 @Table
-@Entity
-public class Users {
+@Entity(name = "users")
+public class User {
     private int id;
     private String name;
     private String email;
@@ -20,8 +20,8 @@ public class Users {
     private Timestamp updatedAt;
 
 
-    private List<Bookings> bookings;
-    private List<Hosts> hosts;
+    private List<Booking> bookings;
+    private List<Host> hosts;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -125,20 +125,20 @@ public class Users {
     }
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    public List<Bookings> getBookings() {
+    public List<Booking> getBookings() {
         return bookings;
     }
 
-    public void setBookings(List<Bookings> bookings) {
+    public void setBookings(List<Booking> bookings) {
         this.bookings = bookings;
     }
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    public List<Hosts> getHosts() {
+    public List<Host> getHosts() {
         return hosts;
     }
 
-    public void setHosts(List<Hosts> hosts) {
+    public void setHosts(List<Host> hosts) {
         this.hosts = hosts;
     }
 }

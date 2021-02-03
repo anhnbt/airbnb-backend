@@ -4,11 +4,11 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table
-public class Hosts {
+@Table(name = "hosts")
+public class Host {
     private int id;
-    private Users user;
-    private List<Places> places;
+    private User user;
+    private List<Place> places;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,20 +24,20 @@ public class Hosts {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", referencedColumnName = "id")
-    public Users getUser() {
+    public User getUser() {
         return user;
     }
 
-    public void setUser(Users user) {
+    public void setUser(User user) {
         this.user = user;
     }
 
     @OneToMany(mappedBy = "host", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    public List<Places> getPlaces() {
+    public List<Place> getPlaces() {
         return places;
     }
 
-    public void setPlaces(List<Places> places) {
+    public void setPlaces(List<Place> places) {
         this.places = places;
     }
 }

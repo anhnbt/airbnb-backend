@@ -4,8 +4,8 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 
 @Entity
-@Table
-public class Reviews {
+@Table(name = "reviews")
+public class Review {
     private int id;
     private byte rating;
     private String reviewBody;
@@ -13,7 +13,7 @@ public class Reviews {
     private Timestamp createdAt;
     private Timestamp updatedAt;
 
-    private Bookings booking;
+    private Booking booking;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -79,11 +79,11 @@ public class Reviews {
 
     @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name = "booking_id", referencedColumnName = "id", nullable = false)
-    public Bookings getBooking() {
+    public Booking getBooking() {
         return booking;
     }
 
-    public void setBooking(Bookings bookingsByBookingId) {
-        this.booking = bookingsByBookingId;
+    public void setBooking(Booking bookingByBookingId) {
+        this.booking = bookingByBookingId;
     }
 }

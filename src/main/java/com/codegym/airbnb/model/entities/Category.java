@@ -1,14 +1,14 @@
 package com.codegym.airbnb.model.entities;
 
 import javax.persistence.*;
-import java.util.Collection;
 import java.util.List;
 
 @Entity
-public class Categories {
+@Table(name = "categories")
+public class Category {
     private int id;
     private String name;
-    private List<Places> places;
+    private List<Place> places;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -34,11 +34,11 @@ public class Categories {
 
 
     @OneToMany(mappedBy = "category", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    public List<Places> getPlaces() {
+    public List<Place> getPlaces() {
         return places;
     }
 
-    public void setPlaces(List<Places> places) {
+    public void setPlaces(List<Place> places) {
         this.places = places;
     }
 }

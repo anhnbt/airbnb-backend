@@ -1,13 +1,11 @@
 package com.codegym.airbnb.model.entities;
 
 import javax.persistence.*;
-import java.math.BigDecimal;
-import java.util.Collection;
 import java.util.List;
 
 @Entity
-@Table
-public class Places {
+@Table(name = "places")
+public class Place {
     private int id;
     private String name;
     private String description;
@@ -16,11 +14,11 @@ public class Places {
     private byte numBedrooms;
     private byte numBathrooms;
 
-    private List<Bookings> bookings;
-    private List<Images> images;
-    private Hosts host;
-    private Cities city;
-    private Categories category;
+    private List<Booking> bookings;
+    private List<Image> images;
+    private Host host;
+    private City city;
+    private Category category;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -96,50 +94,50 @@ public class Places {
 
 
     @OneToMany(mappedBy = "place", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    public List<Bookings> getBookings() {
+    public List<Booking> getBookings() {
         return bookings;
     }
 
-    public void setBookings(List<Bookings> bookingsById) {
-        this.bookings = bookingsById;
+    public void setBookings(List<Booking> bookingById) {
+        this.bookings = bookingById;
     }
 
     @OneToMany(mappedBy = "place", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    public List<Images> getImages() {
+    public List<Image> getImages() {
         return images;
     }
 
-    public void setImages(List<Images> imagesById) {
-        this.images = imagesById;
+    public void setImages(List<Image> imageById) {
+        this.images = imageById;
     }
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "host_id", referencedColumnName = "id", nullable = false)
-    public Hosts getHost() {
+    public Host getHost() {
         return host;
     }
 
-    public void setHost(Hosts hostsByHostId) {
-        this.host = hostsByHostId;
+    public void setHost(Host hostByHostId) {
+        this.host = hostByHostId;
     }
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "city_id", referencedColumnName = "id", nullable = false)
-    public Cities getCity() {
+    public City getCity() {
         return city;
     }
 
-    public void setCity(Cities citiesByCityId) {
-        this.city = citiesByCityId;
+    public void setCity(City cityByCityId) {
+        this.city = cityByCityId;
     }
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id", referencedColumnName = "id", nullable = false)
-    public Categories getCategory() {
+    public Category getCategory() {
         return category;
     }
 
-    public void setCategory(Categories categoriesByCategoryId) {
-        this.category = categoriesByCategoryId;
+    public void setCategory(Category categoryByCategoryId) {
+        this.category = categoryByCategoryId;
     }
 }

@@ -3,11 +3,11 @@
 import javax.persistence.*;
 import java.sql.Date;
 import java.sql.Timestamp;
-import java.util.Collection;
 import java.util.List;
 
 @Entity
-public class Bookings {
+@Table(name = "bookings")
+public class Booking {
     private int id;
     private Date startDate;
     private Date endDate;
@@ -16,9 +16,9 @@ public class Bookings {
     private Timestamp createdAt;
     private Timestamp updatedAt;
 
-    private Users user;
-    private Places place;
-    private List<Reviews> reviews;
+    private User user;
+    private Place place;
+    private List<Review> reviews;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -95,30 +95,30 @@ public class Bookings {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false)
-    public Users getUser() {
+    public User getUser() {
         return user;
     }
 
-    public void setUser(Users usersByUserId) {
-        this.user = usersByUserId;
+    public void setUser(User userByUserId) {
+        this.user = userByUserId;
     }
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "place_id", referencedColumnName = "id", nullable = false)
-    public Places getPlace() {
+    public Place getPlace() {
         return place;
     }
 
-    public void setPlace(Places placesByPlaceId) {
-        this.place = placesByPlaceId;
+    public void setPlace(Place placeByPlaceId) {
+        this.place = placeByPlaceId;
     }
 
     @OneToMany(mappedBy = "booking", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    public List<Reviews> getReviews() {
+    public List<Review> getReviews() {
         return reviews;
     }
 
-    public void setReviews(List<Reviews> reviews) {
+    public void setReviews(List<Review> reviews) {
         this.reviews = reviews;
     }
 }
