@@ -30,7 +30,7 @@ public class Image {
 
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "home_id",updatable = false, insertable = false)
+    @JoinColumn(name = "home_id", updatable = false, insertable = false)
     public Home getHome() {
         return home;
     }
