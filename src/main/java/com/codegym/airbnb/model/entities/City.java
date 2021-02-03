@@ -4,17 +4,16 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "cities")
+@Table
 public class City {
     private int id;
     private String name;
 
     private Country country;
-    private List<Place> places;
+    private List<Home> homes;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
     public int getId() {
         return id;
     }
@@ -23,8 +22,6 @@ public class City {
         this.id = id;
     }
 
-    @Basic
-    @Column(name = "name")
     public String getName() {
         return name;
     }
@@ -35,7 +32,7 @@ public class City {
 
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "country_id", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "country_id")
     public Country getCountry() {
         return country;
     }
@@ -45,11 +42,11 @@ public class City {
     }
 
     @OneToMany(mappedBy = "city", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    public List<Place> getPlaces() {
-        return places;
+    public List<Home> getHomes() {
+        return homes;
     }
 
-    public void setPlaces(List<Place> places) {
-        this.places = places;
+    public void setHomes(List<Home> homes) {
+        this.homes = homes;
     }
 }

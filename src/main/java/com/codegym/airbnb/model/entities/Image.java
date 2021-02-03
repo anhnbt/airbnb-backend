@@ -3,15 +3,14 @@ package com.codegym.airbnb.model.entities;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "images")
+@Table
 public class Image {
     private int id;
     private String imageUrl;
-    private Place place;
+    private Home home;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
     public int getId() {
         return id;
     }
@@ -20,8 +19,7 @@ public class Image {
         this.id = id;
     }
 
-    @Basic
-    @Column(name = "image_url")
+
     public String getImageUrl() {
         return imageUrl;
     }
@@ -32,12 +30,12 @@ public class Image {
 
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "place_id", referencedColumnName = "id", nullable = false, updatable = false, insertable = false)
-    public Place getPlace() {
-        return place;
+    @JoinColumn(name = "home_id", nullable = false, updatable = false, insertable = false)
+    public Home getHome() {
+        return home;
     }
 
-    public void setPlace(Place placeById) {
-        this.place = placeById;
+    public void setHome(Home home) {
+        this.home = home;
     }
 }

@@ -6,7 +6,7 @@ import java.sql.Timestamp;
 import java.util.List;
 
 @Table
-@Entity(name = "users")
+@Entity
 public class User {
     private int id;
     private String name;
@@ -21,11 +21,11 @@ public class User {
 
 
     private List<Booking> bookings;
-    private List<Host> hosts;
+//    private List<Role> roles;
+    private List<Home> homes;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
     public int getId() {
         return id;
     }
@@ -34,8 +34,6 @@ public class User {
         this.id = id;
     }
 
-    @Basic
-    @Column(name = "name")
     public String getName() {
         return name;
     }
@@ -44,8 +42,6 @@ public class User {
         this.name = name;
     }
 
-    @Basic
-    @Column(name = "email")
     public String getEmail() {
         return email;
     }
@@ -54,8 +50,6 @@ public class User {
         this.email = email;
     }
 
-    @Basic
-    @Column(name = "password")
     public String getPassword() {
         return password;
     }
@@ -64,8 +58,6 @@ public class User {
         this.password = password;
     }
 
-    @Basic
-    @Column(name = "gender")
     public Byte getGender() {
         return gender;
     }
@@ -74,8 +66,6 @@ public class User {
         this.gender = gender;
     }
 
-    @Basic
-    @Column(name = "birthday")
     public Date getBirthday() {
         return birthday;
     }
@@ -84,8 +74,6 @@ public class User {
         this.birthday = birthday;
     }
 
-    @Basic
-    @Column(name = "phone")
     public String getPhone() {
         return phone;
     }
@@ -94,8 +82,6 @@ public class User {
         this.phone = phone;
     }
 
-    @Basic
-    @Column(name = "status")
     public Byte getStatus() {
         return status;
     }
@@ -104,8 +90,6 @@ public class User {
         this.status = status;
     }
 
-    @Basic
-    @Column(name = "created_at")
     public Timestamp getCreatedAt() {
         return createdAt;
     }
@@ -114,8 +98,6 @@ public class User {
         this.createdAt = createdAt;
     }
 
-    @Basic
-    @Column(name = "updated_at")
     public Timestamp getUpdatedAt() {
         return updatedAt;
     }
@@ -123,6 +105,7 @@ public class User {
     public void setUpdatedAt(Timestamp updatedAt) {
         this.updatedAt = updatedAt;
     }
+
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     public List<Booking> getBookings() {
@@ -133,12 +116,21 @@ public class User {
         this.bookings = bookings;
     }
 
+//    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+//    public List<Role> getRoles() {
+//        return roles;
+//    }
+//
+//    public void setRoles(List<Role> roles) {
+//        this.roles = roles;
+//    }
+
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    public List<Host> getHosts() {
-        return hosts;
+    public List<Home> getHomes() {
+        return homes;
     }
 
-    public void setHosts(List<Host> hosts) {
-        this.hosts = hosts;
+    public void setHomes(List<Home> homes) {
+        this.homes = homes;
     }
 }

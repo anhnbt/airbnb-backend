@@ -14,7 +14,6 @@ public class Country {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
     public int getId() {
         return id;
     }
@@ -23,8 +22,6 @@ public class Country {
         this.id = id;
     }
 
-    @Basic
-    @Column(name = "country_code")
     public String getCountryCode() {
         return countryCode;
     }
@@ -33,8 +30,6 @@ public class Country {
         this.countryCode = countryCode;
     }
 
-    @Basic
-    @Column(name = "name")
     public String getName() {
         return name;
     }
@@ -42,7 +37,6 @@ public class Country {
     public void setName(String name) {
         this.name = name;
     }
-
 
 
     @OneToMany(mappedBy = "country", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
