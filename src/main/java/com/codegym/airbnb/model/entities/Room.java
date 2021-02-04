@@ -23,15 +23,15 @@ public class Room implements Serializable {
     private List<RoomImage> roomImages;
 
     @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false, updatable = false)
+    @JoinColumn(name = "user_id", nullable = true, updatable = false)
     private User user;
 
     @ManyToOne
-    @JoinColumn(name = "province_id", nullable = false, updatable = false)
+    @JoinColumn(name = "province_id", nullable = true, updatable = false)
     private Province province;
 
     @ManyToOne
-    @JoinColumn(name = "property_type", nullable = false, updatable = false)
+    @JoinColumn(name = "property_type", nullable = true, updatable = false)
     private PropertyType propertyType;
 
     public Long getId() {

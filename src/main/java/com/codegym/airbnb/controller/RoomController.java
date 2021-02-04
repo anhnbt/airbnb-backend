@@ -2,7 +2,7 @@ package com.codegym.airbnb.controller;
 
 import com.codegym.airbnb.model.Response;
 import com.codegym.airbnb.model.entities.Room;
-import com.codegym.airbnb.model.service.HomeService;
+import com.codegym.airbnb.model.service.RoomService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -12,16 +12,16 @@ import java.util.Optional;
 @RestController
 @RequestMapping("api/v1/rooms")
 @CrossOrigin("*")
-public class HomeController {
+public class RoomController {
 
     @Autowired
-    private HomeService homeService;
+    private RoomService roomService;
 
     // Cho nay anh Duy viet
     @GetMapping
     public Response home() {
         Response res = new Response();
-        res.setData(homeService.findAll());
+        res.setData(roomService.findAll());
         // Fix lai trả về dữ liệu có phân trang.
         res.setMessage("SUCCESS");
         res.setStatus(HttpStatus.OK);
@@ -31,7 +31,7 @@ public class HomeController {
     @GetMapping("{id}")
     public Response findById(@PathVariable("id") Long id) {
         Response res = new Response();
-        Optional<Room> home = homeService.findByHomeId(id);
+        Optional<Room> home = roomService.findByHomeId(id);
         res.setData(home.orElseGet(() -> null));
         if (home.isPresent()) {
             res.setMessage("SUCCESS");
@@ -46,7 +46,7 @@ public class HomeController {
     @PostMapping
     public Response createPost(@RequestBody Room room) {
         Response res = new Response();
-        res.setData(homeService.save(room));
+        res.setData(roomService.save(room));
         res.setMessage("SUCCESS");
         res.setStatus(HttpStatus.OK);
         return res;

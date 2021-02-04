@@ -1,17 +1,17 @@
 package com.codegym.airbnb.model.service.impl;
 
 import com.codegym.airbnb.model.entities.Room;
-import com.codegym.airbnb.model.repository.HomeRepository;
-import com.codegym.airbnb.model.service.HomeService;
+import com.codegym.airbnb.model.repository.RoomRepository;
+import com.codegym.airbnb.model.service.RoomService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
 @Service
-public class HomeServiceImpl implements HomeService {
+public class RoomServiceImpl implements RoomService {
     @Autowired
-    private HomeRepository homeRepository;
+    private RoomRepository homeRepository;
 
     @Override
     public Iterable<Room> findAll() {

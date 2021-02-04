@@ -4,7 +4,7 @@ import com.codegym.airbnb.model.entities.Room;
 
 import java.util.Optional;
 
-public interface HomeService {
+public interface RoomService {
 
     Iterable<Room> findAll();
 
