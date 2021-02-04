@@ -26,12 +26,12 @@ public class User implements Serializable {
     private Timestamp createdAt;
     private Timestamp updatedAt;
 
-    @OneToMany(cascade = CascadeType.REMOVE, orphanRemoval = true)
+    @OneToMany(fetch = FetchType.LAZY,cascade = CascadeType.REMOVE, orphanRemoval = true)
     @JoinColumn(name = "booking_id")
     @JsonIgnore
     private List<Booking> bookings;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     @JsonIgnore
     private List<Room> rooms;
 

@@ -14,7 +14,7 @@ public class PropertyType implements Serializable {
     private int id;
     private String name;
 
-    @OneToMany(mappedBy = "propertyType")
+    @OneToMany(mappedBy = "propertyType", fetch = FetchType.LAZY)
     @JsonIgnore
     private List<Room> rooms;
 

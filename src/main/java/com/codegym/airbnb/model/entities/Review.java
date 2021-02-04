@@ -1,5 +1,7 @@
 package com.codegym.airbnb.model.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Timestamp;
@@ -18,6 +20,7 @@ public class Review implements Serializable {
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "booking_id", nullable = false, updatable = false)
+    @JsonIgnore
     private Booking booking;
 
     public Long getId() {

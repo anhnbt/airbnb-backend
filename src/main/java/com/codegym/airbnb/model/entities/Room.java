@@ -6,6 +6,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "rooms")
+
 public class Room implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -16,19 +17,20 @@ public class Room implements Serializable {
     private Double pricePerNight;
     private Byte totalOfBedroom;
     private Byte totalOfBathroom;
+    private Boolean status;
 
-    @OneToMany(mappedBy = "room")
+    @OneToMany(mappedBy = "room", fetch = FetchType.LAZY)
     private List<RoomImage> roomImages;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "user_id", nullable = false, updatable = false)
     private User user;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "province_id", nullable = false, updatable = false)
     private Province province;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "property_type", nullable = false, updatable = false)
     private PropertyType propertyType;
 
@@ -118,5 +120,21 @@ public class Room implements Serializable {
 
     public void setPropertyType(PropertyType propertyType) {
         this.propertyType = propertyType;
+    }
+
+    public Boolean getStatus() {
+        return status;
+    }
+
+    public void setStatus(Boolean status) {
+        this.status = status;
+    }
+
+    public List<RoomImage> getRoomImages() {
+        return roomImages;
+    }
+
+    public void setRoomImages(List<RoomImage> roomImages) {
+        this.roomImages = roomImages;
     }
 }

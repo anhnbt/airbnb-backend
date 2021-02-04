@@ -13,7 +13,7 @@ public class RoomImage implements Serializable {
     private Long id;
     private String imageUrl;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "room_id", nullable = false, updatable = false)
     @JsonIgnore
     private Room room;
