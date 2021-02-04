@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.Optional;
 
 @RestController
@@ -40,6 +41,16 @@ public class HomeController {
             res.setMessage("No rooms available");
             res.setStatus(HttpStatus.NOT_FOUND);
         }
+        return res;
+    }
+
+    @GetMapping("/city/{id}")
+    public Response findByCityId(@PathVariable("id") int id) {
+        Response res = new Response();
+        ArrayList<Room> home = (ArrayList<Room>) homeService.findAllByCityId(id);
+        res.setMessage("SUCCESS");
+        res.setStatus(HttpStatus.OK);
+        res.setData(home);
         return res;
     }
 
