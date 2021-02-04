@@ -3,6 +3,10 @@ package com.codegym.airbnb.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.sql.Date;
 import java.sql.Timestamp;
@@ -14,14 +18,26 @@ public class User implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @NotNull
+    @Size(min = 3)
     private String name;
+
     @Column(unique = true)
+    @Email
     private String email;
-    @JsonIgnore
+
+//    @JsonIgnore
+    @Size(min = 6)
+    @Pattern(regexp = "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{6,}$")
     private String password;
+
     private Byte gender;
     private Date dateOfBirth;
+
+    @Pattern(regexp = "\"^[\\\\+]?[(]?[0-9]{3}[)]?[-\\\\s\\\\.]?[0-9]{3}[-\\\\s\\\\.]?[0-9]{4,6}$\"" )
     private String phone;
+
     private Boolean active;
     private Timestamp createdAt;
     private Timestamp updatedAt;
