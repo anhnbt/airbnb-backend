@@ -18,3 +18,4 @@ public interface HomeRepository extends CrudRepository<Room, Long> {
     Optional<Room> findByHomeId(Long id);
 
 }
+
