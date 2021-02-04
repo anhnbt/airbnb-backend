@@ -12,7 +12,7 @@ public interface HomeRepository extends CrudRepository<Room, Long> {
     Iterable<Room> findAllCustomQuery();
 
 //    @Query("SELECT h.id, h.name, h.description, h.address, h.pricePerNight, h.numBedrooms, h.numBathrooms FROM Home h WHERE h.id = ?1")
-    @Query(value = "SELECT id, name, description, address, price_per_night, total_of_bedroom, total_of_bathroom, province_id, property_type          , user_id FROM rooms WHERE id = ?1", nativeQuery = true)
+    @Query(value = "SELECT id, name, description, address, pricePerNight, totalOfBedroom, totalOfBathroom, province_id, property_type, user_id FROM rooms WHERE id = ?1", nativeQuery = true)
     Optional<Room> findByHomeId(Long id);
 
 }
