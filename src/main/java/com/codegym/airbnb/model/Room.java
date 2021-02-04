@@ -1,11 +1,15 @@
 package com.codegym.airbnb.model;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
 
 @Entity
 @Table(name = "rooms")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,property = "id")
 public class Room implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,6 +23,9 @@ public class Room implements Serializable {
 
     @OneToMany(mappedBy = "room")
     private List<RoomImage> roomImages;
+
+    @OneToMany(mappedBy = "room")
+    private List<Booking> bookings;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false, updatable = false)
@@ -118,5 +125,21 @@ public class Room implements Serializable {
 
     public void setPropertyType(PropertyType propertyType) {
         this.propertyType = propertyType;
+    }
+
+    public List<RoomImage> getRoomImages() {
+        return roomImages;
+    }
+
+    public void setRoomImages(List<RoomImage> roomImages) {
+        this.roomImages = roomImages;
+    }
+
+    public List<Booking> getBookings() {
+        return bookings;
+    }
+
+    public void setBookings(List<Booking> bookings) {
+        this.bookings = bookings;
     }
 }
