@@ -46,7 +46,7 @@ public class User implements Serializable {
     private Timestamp updatedAt;
 
     @OneToMany(mappedBy = "user",cascade = CascadeType.REMOVE, orphanRemoval = true)
-    @JsonIgnore
+//    @JsonIgnore
     private List<Booking> bookings;
 
     @OneToMany(mappedBy = "user")
