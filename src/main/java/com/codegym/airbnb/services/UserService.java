@@ -1,7 +1,6 @@
-package com.codegym.airbnb.model.service;
+package com.codegym.airbnb.services;
 
-import com.codegym.airbnb.model.entities.User;
-
+import com.codegym.airbnb.model.User;
 import java.util.Optional;
 
 public interface UserService {
