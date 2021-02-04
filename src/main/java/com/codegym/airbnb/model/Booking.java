@@ -20,6 +20,8 @@ public class Booking implements Serializable {
     private Date startDate;
     private Date endDate;
     private Byte status;
+    @Column(name = "cancel_reservation_time", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+    private LocalDateTime cancelReservationTime;
     @Column(name = "created_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private LocalDateTime createdAt;
     @Column(name = "updated_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
@@ -79,6 +81,14 @@ public class Booking implements Serializable {
 
     public void setStatus(Byte status) {
         this.status = status;
+    }
+
+    public LocalDateTime getCancelReservationTime() {
+        return cancelReservationTime;
+    }
+
+    public void setCancelReservationTime(LocalDateTime cancelReservationTime) {
+        this.cancelReservationTime = cancelReservationTime;
     }
 
     public LocalDateTime getCreatedAt() {
