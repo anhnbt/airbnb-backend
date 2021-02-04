@@ -45,8 +45,7 @@ public class User implements Serializable {
     private Timestamp createdAt;
     private Timestamp updatedAt;
 
-    @OneToMany(cascade = CascadeType.REMOVE, orphanRemoval = true)
-    @JoinColumn(name = "booking_id")
+    @OneToMany(mappedBy = "user",cascade = CascadeType.REMOVE, orphanRemoval = true)
     @JsonIgnore
     private List<Booking> bookings;
 

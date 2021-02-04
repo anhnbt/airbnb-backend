@@ -16,8 +16,8 @@ public class Review implements Serializable {
     private Timestamp createdAt;
     private Timestamp updatedAt;
 
-    @ManyToOne(optional = false)
-    @JoinColumn(name = "booking_id", nullable = false, updatable = false)
+    @ManyToOne
+    @JoinColumn(name = "booking_id")
     private Booking booking;
 
     public Long getId() {
