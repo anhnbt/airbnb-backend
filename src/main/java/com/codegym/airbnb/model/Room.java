@@ -1,8 +1,6 @@
 package com.codegym.airbnb.model;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -18,10 +16,13 @@ public class Room implements Serializable {
     private String name;
     private String description;
     private String address;
+    @Column(name = "price_per_night")
     private Double pricePerNight;
+    @Column(name = "total_of_bedroom")
     private Byte totalOfBedroom;
+    @Column(name = "total_of_bathroom")
     private Byte totalOfBathroom;
-    private boolean status;
+    private Boolean status;
 
     @OneToMany(mappedBy = "room")
     private List<RoomImage> roomImages;
@@ -139,11 +140,11 @@ public class Room implements Serializable {
         this.bookings = bookings;
     }
 
-    public boolean isStatus() {
+    public Boolean isStatus() {
         return status;
     }
 
-    public void setStatus(boolean status) {
+    public void setStatus(Boolean status) {
         this.status = status;
     }
 }
