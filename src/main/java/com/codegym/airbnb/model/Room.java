@@ -1,6 +1,7 @@
 package com.codegym.airbnb.model;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
@@ -9,7 +10,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "rooms")
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,property = "id")
+//@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,property = "id")
 public class Room implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,15 +21,18 @@ public class Room implements Serializable {
     private Double pricePerNight;
     private Byte totalOfBedroom;
     private Byte totalOfBathroom;
+    private boolean status;
 
     @OneToMany(mappedBy = "room")
     private List<RoomImage> roomImages;
 
     @OneToMany(mappedBy = "room")
+    @JsonIgnore
     private List<Booking> bookings;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false, updatable = false)
+//    @JsonIgnore
     private User user;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -95,14 +99,6 @@ public class Room implements Serializable {
         this.totalOfBathroom = totalOfBathroom;
     }
 
-    public List<RoomImage> getBookingImages() {
-        return roomImages;
-    }
-
-    public void setBookingImages(List<RoomImage> roomImages) {
-        this.roomImages = roomImages;
-    }
-
     public User getUser() {
         return user;
     }
@@ -141,5 +137,13 @@ public class Room implements Serializable {
 
     public void setBookings(List<Booking> bookings) {
         this.bookings = bookings;
+    }
+
+    public boolean isStatus() {
+        return status;
+    }
+
+    public void setStatus(boolean status) {
+        this.status = status;
     }
 }
