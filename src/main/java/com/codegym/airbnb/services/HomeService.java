@@ -7,6 +7,7 @@ import java.util.Optional;
 public interface HomeService {
 
     Iterable<Room> findAll();
+    Iterable<Room> findAllByCityId(int id);
 
     Iterable<Room> findAllCustomQuery();
 
