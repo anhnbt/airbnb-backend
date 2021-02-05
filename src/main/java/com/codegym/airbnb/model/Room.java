@@ -21,6 +21,7 @@ public class Room implements Serializable {
     private Double pricePerNight;
     private Byte totalOfBedroom;
     private Byte totalOfBathroom;
+    private boolean status;
 
     @OneToMany(mappedBy = "room")
     private List<RoomImage> roomImages;
@@ -136,5 +137,13 @@ public class Room implements Serializable {
 
     public void setBookings(List<Booking> bookings) {
         this.bookings = bookings;
+    }
+
+    public boolean isStatus() {
+        return status;
+    }
+
+    public void setStatus(boolean status) {
+        this.status = status;
     }
 }

@@ -62,4 +62,15 @@ public class HomeController {
         res.setStatus(HttpStatus.OK);
         return res;
     }
+
+    @PutMapping("{id}/status")
+    public void changeStatus(@PathVariable int id) {
+        for (Room room : homeService.findAll()) {
+            if(room.getId() == id) {
+                room.setStatus(!room.isStatus());
+                homeService.save(room);
+                break;
+            }
+        }
+    }
 }
