@@ -1,9 +1,5 @@
 package com.codegym.airbnb.model;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Date;
@@ -20,7 +16,7 @@ public class Booking implements Serializable {
     private Integer numNights;
     private Date startDate;
     private Date endDate;
-    private Byte status;
+    private BookingStatus status;
     @Column(name = "cancel_reservation_time", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private LocalDateTime cancelReservationTime;
     @Column(name = "created_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
@@ -78,11 +74,11 @@ public class Booking implements Serializable {
         this.endDate = endDate;
     }
 
-    public Byte getStatus() {
+    public BookingStatus getStatus() {
         return status;
     }
 
-    public void setStatus(Byte status) {
+    public void setStatus(BookingStatus status) {
         this.status = status;
     }
 
