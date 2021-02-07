@@ -13,6 +13,7 @@ import java.io.Serializable;
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "users")
@@ -25,6 +26,8 @@ public class User implements Serializable {
     @NotNull
     @Size(min = 3)
     private String name;
+
+    private String username;
 
     @Column(unique = true)
     @Email
@@ -52,6 +55,14 @@ public class User implements Serializable {
     @OneToMany(mappedBy = "user")
     @JsonIgnore
     private List<Room> rooms;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "users_roles",
+            joinColumns = {@JoinColumn(name="user_id")},
+            inverseJoinColumns = {@JoinColumn(name="role_id")}
+    )
+    private Set<Role> roles;
 
     public Long getId() {
         return id;
@@ -93,6 +104,14 @@ public class User implements Serializable {
         this.gender = gender;
     }
 
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
+    }
+
     public Date getDateOfBirth() {
         return dateOfBirth;
     }
@@ -123,6 +142,14 @@ public class User implements Serializable {
 
     public void setCreatedAt(Timestamp createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public Timestamp getUpdatedAt() {
