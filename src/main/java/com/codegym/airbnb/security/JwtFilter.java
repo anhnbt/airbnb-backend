@@ -1,4 +1,4 @@
-package com.codegym.airbnb.config;
+package com.codegym.airbnb.security;
 
 import com.codegym.airbnb.services.UserService;
 import org.slf4j.Logger;

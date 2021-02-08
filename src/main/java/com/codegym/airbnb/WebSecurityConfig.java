@@ -1,6 +1,6 @@
 package com.codegym.airbnb;
 
-import com.codegym.airbnb.config.JwtFilter;
+import com.codegym.airbnb.security.JwtFilter;
 import com.codegym.airbnb.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;

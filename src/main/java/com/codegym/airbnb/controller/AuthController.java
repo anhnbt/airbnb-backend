@@ -1,6 +1,6 @@
 package com.codegym.airbnb.controller;
 
-import com.codegym.airbnb.config.JwtUtil;
+import com.codegym.airbnb.security.JwtUtil;
 import com.codegym.airbnb.model.*;
 import com.codegym.airbnb.services.RoleService;
 import com.codegym.airbnb.services.UserService;
