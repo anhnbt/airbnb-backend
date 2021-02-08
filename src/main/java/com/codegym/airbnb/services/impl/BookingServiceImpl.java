@@ -6,6 +6,7 @@ import com.codegym.airbnb.services.BookingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -13,6 +14,11 @@ public class BookingServiceImpl implements BookingService {
 
     @Autowired
     private BookingRepository bookingRepository;
+
+    @Override
+    public Iterable<Booking> findAll() {
+        return bookingRepository.findAll();
+    }
 
     @Override
     public Booking save(Booking booking) {

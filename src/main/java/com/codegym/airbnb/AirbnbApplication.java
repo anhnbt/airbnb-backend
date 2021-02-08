@@ -44,11 +44,11 @@ public class AirbnbApplication {
         List<Role> roleList = (List<Role>) roleService.findAll();
         if (roleList.isEmpty()) {
             Role roleAdmin = new Role();
-            roleAdmin.setId(1);
+            roleAdmin.setId(1L);
             roleAdmin.setName("ROLE_ADMIN");
             roleService.save(roleAdmin);
             Role roleUser = new Role();
-            roleUser.setId(2);
+            roleUser.setId(2L);
             roleUser.setName("ROLE_USER");
             roleService.save(roleUser);
         }
@@ -56,7 +56,7 @@ public class AirbnbApplication {
             UserModel admin = new UserModel();
             Set<Role> roles = new HashSet<>();
             Role roleAdmin = new Role();
-            roleAdmin.setId(1);
+            roleAdmin.setId(1L);
             roleAdmin.setName("ROLE_ADMIN");
             roles.add(roleAdmin);
             admin.setName("admin");

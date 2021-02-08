@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -15,10 +14,9 @@ import java.util.Optional;
 
 @Service
 public class UserServiceImpl implements UserService {
+
     @Autowired
     private UserRepository userRepository;
-    @Autowired
-    private PasswordEncoder passwordEncoder;
 
     @Override
     public Iterable<UserModel> findAll() {
@@ -36,6 +34,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public Optional<UserModel> findByEmail(String email) {
+        return userRepository.findByEmail(email);
+    }
+
+    @Override
     public Optional<UserModel> findByUserName(String username) {
         return userRepository.findByUsername(username);
     }
@@ -47,17 +50,16 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserModel save(UserModel user) {
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
         return userRepository.save(user);
     }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
-        Optional<UserModel> userOptional = userRepository.findByUsername(username);
-        if (!userOptional.isPresent()) {
+        Optional<UserModel> user = userRepository.findByUsername(username);
+        if (!user.isPresent()) {
             throw new UsernameNotFoundException(username);
         }
-        return new User(userOptional.get().getUsername(), userOptional.get().getPassword(), new ArrayList<>());
+        return new User(user.get().getUsername(), user.get().getPassword(), new ArrayList<>());
     }
 }

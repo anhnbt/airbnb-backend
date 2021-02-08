@@ -24,8 +24,8 @@ public class CheckoutController {
 
     @PostMapping
     public Response checkout(@RequestBody Booking booking) {
-        booking.setCreatedAt(LocalDateTime.now());
-        booking.setUpdatedAt(LocalDateTime.now());
+//        booking.setCreatedAt(LocalDateTime.now());
+//        booking.setUpdatedAt(LocalDateTime.now());
         Optional<UserModel> user = userService.findById(booking.getUser().getId());
         if (user.isPresent()) {
             booking.setUser(user.get());

@@ -8,12 +8,9 @@ import java.util.List;
 
 @Entity
 @Table(name = "rooms")
-//@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,property = "id")
-public class Room implements Serializable {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class Room extends AbstractEntity implements Serializable {
     private String name;
+    @Column(columnDefinition = "TEXT")
     private String description;
     private String address;
     @Column(name = "price_per_night")
@@ -24,7 +21,7 @@ public class Room implements Serializable {
     private Byte totalOfBathroom;
     private Boolean status;
 
-    @OneToMany(mappedBy = "room")
+    @OneToMany(orphanRemoval = true, mappedBy = "room")
     private List<RoomImage> roomImages;
 
     @OneToMany(mappedBy = "room")
@@ -32,8 +29,7 @@ public class Room implements Serializable {
     private List<Booking> bookings;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", nullable = true, updatable = false)
-//    @JsonIgnore
+    @JoinColumn(name = "user_id", nullable = false, updatable = false)
     private UserModel user;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -43,14 +39,6 @@ public class Room implements Serializable {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "property_type", nullable = false, updatable = false)
     private PropertyType propertyType;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getName() {
         return name;

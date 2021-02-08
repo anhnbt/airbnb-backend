@@ -1,84 +1,92 @@
 package com.codegym.airbnb.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 import java.io.Serializable;
-import java.sql.Date;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Entity
 @Table(name = "bookings")
-//@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,property = "id")
-public class Booking implements Serializable {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    private Integer numNights;
-    private Date startDate;
-    private Date endDate;
-    private Byte status;
+@JsonIgnoreProperties(ignoreUnknown = true)
+public class Booking extends AbstractEntity implements Serializable {
+    @Column(name = "number_of_guests")
+    private Byte numberOfGuests;
+
+    @Column(name = "number_of_children")
+    private Byte numberOfChildren;
+
+    @Column(name = "number_of_infants")
+    private Byte numberOfInfants;
+
+    private LocalDate startDate;
+    private LocalDate endDate;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status", length = 15)
+    private BookingStatus status;
+
     @Column(name = "cancel_reservation_time", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private LocalDateTime cancelReservationTime;
-    @Column(name = "created_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
-    private LocalDateTime createdAt;
-    @Column(name = "updated_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
-    private LocalDateTime updatedAt;
 
-    public Booking() {
-        this.createdAt = LocalDateTime.now();
-        this.updatedAt = LocalDateTime.now();
-    }
-
-    @OneToMany(mappedBy = "booking")
-    private List<Review> reviews;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
+    // fetch = FetchType.LAZY khi select đối tượng Booking thì mặc định không query các đối tượng User liên quan.
+    // CascadeType.ALL Tương ứng với tất cả các loại cascade. cascade={DETACH, MERGE, PERSIST, REFRESH, REMOVE}
+    @ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id", nullable = false, updatable = false)
 //    @JsonIgnore
     private UserModel user;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(optional = false, cascade = CascadeType.ALL)
     @JoinColumn(name = "room_id")
 //    @JsonIgnore
     private Room room;
 
-    public Long getId() {
-        return id;
+    public Byte getNumberOfGuests() {
+        return numberOfGuests;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setNumberOfGuests(Byte numberOfGuests) {
+        this.numberOfGuests = numberOfGuests;
     }
 
-    public Integer getNumNights() {
-        return numNights;
+    public Byte getNumberOfChildren() {
+        return numberOfChildren;
     }
 
-    public void setNumNights(Integer numNights) {
-        this.numNights = numNights;
+    public void setNumberOfChildren(Byte numberOfChildren) {
+        this.numberOfChildren = numberOfChildren;
     }
 
-    public Date getStartDate() {
+    public Byte getNumberOfInfants() {
+        return numberOfInfants;
+    }
+
+    public void setNumberOfInfants(Byte numberOfInfants) {
+        this.numberOfInfants = numberOfInfants;
+    }
+
+    public LocalDate getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(Date startDate) {
+    public void setStartDate(LocalDate startDate) {
         this.startDate = startDate;
     }
 
-    public Date getEndDate() {
+    public LocalDate getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(Date endDate) {
+    public void setEndDate(LocalDate endDate) {
         this.endDate = endDate;
     }
 
-    public Byte getStatus() {
+    public BookingStatus getStatus() {
         return status;
     }
 
-    public void setStatus(Byte status) {
+    public void setStatus(BookingStatus status) {
         this.status = status;
     }
 
@@ -88,22 +96,6 @@ public class Booking implements Serializable {
 
     public void setCancelReservationTime(LocalDateTime cancelReservationTime) {
         this.cancelReservationTime = cancelReservationTime;
-    }
-
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public LocalDateTime getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public void setUpdatedAt(LocalDateTime updatedAt) {
-        this.updatedAt = updatedAt;
     }
 
     public UserModel getUser() {
@@ -120,13 +112,5 @@ public class Booking implements Serializable {
 
     public void setRoom(Room room) {
         this.room = room;
-    }
-
-    public List<Review> getReviews() {
-        return reviews;
-    }
-
-    public void setReviews(List<Review> reviews) {
-        this.reviews = reviews;
     }
 }
