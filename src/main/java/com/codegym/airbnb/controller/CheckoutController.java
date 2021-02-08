@@ -2,12 +2,11 @@ package com.codegym.airbnb.controller;
 
 import com.codegym.airbnb.model.Booking;
 import com.codegym.airbnb.model.Response;
-import com.codegym.airbnb.model.User;
+import com.codegym.airbnb.model.UserModel;
 import com.codegym.airbnb.services.BookingService;
 import com.codegym.airbnb.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
@@ -27,7 +26,7 @@ public class CheckoutController {
     public Response checkout(@RequestBody Booking booking) {
 //        booking.setCreatedAt(LocalDateTime.now());
 //        booking.setUpdatedAt(LocalDateTime.now());
-        Optional<User> user = userService.findById(booking.getUser().getId());
+        Optional<UserModel> user = userService.findById(booking.getUser().getId());
         if (user.isPresent()) {
             booking.setUser(user.get());
         }

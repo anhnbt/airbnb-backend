@@ -13,6 +13,8 @@ import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "users")
@@ -24,6 +26,8 @@ public class User extends AbstractEntity implements Serializable {
     @NotNull
     @Size(min = 3)
     private String name;
+
+    private String username;
 
     @Column(unique = true)
     @Email
@@ -41,6 +45,14 @@ public class User extends AbstractEntity implements Serializable {
     private String phone;
 
     private Boolean active;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "users_roles",
+            joinColumns = {@JoinColumn(name="user_id")},
+            inverseJoinColumns = {@JoinColumn(name="role_id")}
+    )
+    private Set<Role> roles;
 
     public Long getId() {
         return id;
@@ -83,6 +95,15 @@ public class User extends AbstractEntity implements Serializable {
     }
 
     public LocalDate getDateOfBirth() {
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
+    }
+
+    public Date getDateOfBirth() {
         return dateOfBirth;
     }
 
