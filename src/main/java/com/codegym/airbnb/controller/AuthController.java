@@ -1,8 +1,7 @@
 package com.codegym.airbnb.controller;
 
-import com.codegym.airbnb.model.JwtResponse;
-import com.codegym.airbnb.model.Role;
-import com.codegym.airbnb.model.User;
+import com.codegym.airbnb.config.JwtUtil;
+import com.codegym.airbnb.model.*;
 import com.codegym.airbnb.services.RoleService;
 import com.codegym.airbnb.services.UserService;
 import com.codegym.airbnb.services.impl.JwtService;
@@ -10,13 +9,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 @CrossOrigin("*")
@@ -30,20 +29,20 @@ public class AuthController {
     private JwtService jwtService;
 
     @Autowired
+    private JwtUtil jwtUtil;
+
+    @Autowired
     private UserService userService;
 
     @Autowired
     private RoleService roleService;
 
-//    @Autowired
-//    private PasswordEncoder passwordEncoder;
-
     @PostMapping("/register")
-    public ResponseEntity registerUser(@RequestBody User user) {
+    public ResponseEntity registerUser(@RequestBody UserModel user) {
         if(userService.existsByUsername(user.getUsername())) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-        User newUser = new User();
+        UserModel newUser = new UserModel();
         newUser.setUsername(user.getUsername());
         newUser.setPassword(user.getPassword());
         Set<Role> roles = new HashSet<>();
@@ -61,16 +60,17 @@ public class AuthController {
         return new ResponseEntity(HttpStatus.OK);
     }
 
-    @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody User user) {
-        Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword()));
-
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-
-        String jwt = jwtService.generateTokenLogin(authentication);
-        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-        User currentUser = userService.findByUserName(user.getUsername()).get();
-        return ResponseEntity.ok(new JwtResponse(jwt, currentUser.getId(), userDetails.getUsername(), userDetails.getAuthorities()));
+    @PostMapping("/api/v1/users/login")
+    public Response createAuthenticationToken(@RequestBody LoginForm loginForm) {
+        try {
+            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginForm.getUsername(), loginForm.getPassword()));
+        } catch (BadCredentialsException e) {
+            return new Response(null, "Wrong user or password", HttpStatus.FORBIDDEN);
+        }
+        // Trả về jwt cho người dùng.
+        String jwt = jwtUtil.generateToken(loginForm.getUsername());
+        Optional<UserModel> user = userService.findByUserName(loginForm.getUsername());
+        UserDetails userDetails = userService.loadUserByUsername(loginForm.getUsername());
+        return new Response(new JwtResponse(jwt, user.get().getId(), user.get().getUsername(), userDetails.getAuthorities()), "success", HttpStatus.OK);
     }
 }

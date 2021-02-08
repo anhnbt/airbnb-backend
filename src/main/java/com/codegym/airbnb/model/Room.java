@@ -34,7 +34,7 @@ public class Room implements Serializable {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false, updatable = false)
 //    @JsonIgnore
-    private User user;
+    private UserModel user;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "province_id", nullable = false, updatable = false)
@@ -100,11 +100,11 @@ public class Room implements Serializable {
         this.totalOfBathroom = totalOfBathroom;
     }
 
-    public User getUser() {
+    public UserModel getUser() {
         return user;
     }
 
-    public void setUser(User user) {
+    public void setUser(UserModel user) {
         this.user = user;
     }
 

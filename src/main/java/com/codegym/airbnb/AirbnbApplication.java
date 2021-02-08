@@ -1,7 +1,7 @@
 package com.codegym.airbnb;
 
 import com.codegym.airbnb.model.Role;
-import com.codegym.airbnb.model.User;
+import com.codegym.airbnb.model.UserModel;
 import com.codegym.airbnb.services.RoleService;
 import com.codegym.airbnb.services.UserService;
 import com.codegym.airbnb.storage.StorageProperties;
@@ -40,7 +40,7 @@ public class AirbnbApplication {
 
     @PostConstruct
     public void init() {
-        List<User> users = (List<User>) userService.findAll();
+        List<UserModel> users = (List<UserModel>) userService.findAll();
         List<Role> roleList = (List<Role>) roleService.findAll();
         if (roleList.isEmpty()) {
             Role roleAdmin = new Role();
@@ -53,7 +53,7 @@ public class AirbnbApplication {
             roleService.save(roleUser);
         }
         if (users.isEmpty()) {
-            User admin = new User();
+            UserModel admin = new UserModel();
             Set<Role> roles = new HashSet<>();
             Role roleAdmin = new Role();
             roleAdmin.setId(1);
