@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ControllerAdvice
-class BookingNotFoundAdvice {
+class ControllerAdviceException {
 
   @ResponseBody
   @ExceptionHandler(BookingNotFoundException.class)
@@ -15,4 +15,19 @@ class BookingNotFoundAdvice {
   String BookingNotFoundHandler(BookingNotFoundException ex) {
     return ex.getMessage();
   }
+
+  @ResponseBody
+  @ExceptionHandler(UserNotFoundException.class)
+  @ResponseStatus(HttpStatus.NOT_FOUND)
+  String UserNotFoundHandler(UserNotFoundException ex) {
+    return ex.getMessage();
+  }
+
+  @ResponseBody
+  @ExceptionHandler(RoomNotFoundException.class)
+  @ResponseStatus(HttpStatus.NOT_FOUND)
+  String RoomNotFoundHandler(RoomNotFoundException ex) {
+    return ex.getMessage();
+  }
+
 }

@@ -1,10 +1,7 @@
 package com.codegym.airbnb.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.List;
 
 @Entity
 @Table(name = "provinces")
@@ -17,10 +14,6 @@ public class Province implements Serializable {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "country_id")
     private Country country;
-
-    @OneToMany(mappedBy = "province")
-    @JsonIgnore
-    private List<Room> rooms;
 
     public Long getId() {
         return id;
@@ -44,13 +37,5 @@ public class Province implements Serializable {
 
     public void setCountry(Country country) {
         this.country = country;
-    }
-
-    public List<Room> getRooms() {
-        return rooms;
-    }
-
-    public void setRooms(List<Room> rooms) {
-        this.rooms = rooms;
     }
 }
