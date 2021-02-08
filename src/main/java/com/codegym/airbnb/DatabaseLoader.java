@@ -30,8 +30,8 @@ public class DatabaseLoader implements CommandLineRunner {
 			user.setDateOfBirth(LocalDate.now());
 			user.setGender((byte) 1);
 			user.setActive(true);
-			user.setCreatedAt(LocalDateTime.now());
-			user.setUpdatedAt(LocalDateTime.now());
+			user.setCreatedDate(LocalDateTime.now());
+			user.setModifiedDate(LocalDateTime.now());
 			this.userService.save(user);
 			logger.info("Inserting customer record for " + user.getName());
 		}

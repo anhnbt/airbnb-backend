@@ -43,7 +43,6 @@ public class BookingController {
             @PathVariable("roomId") Long roomId,
             @PathVariable("userId") Long userId,
             @RequestBody Booking booking) {
-        System.out.println(1);
         User user = userService.findById(userId).orElseThrow(() -> new UserNotFoundException(userId));
         Room room = homeService.findById(userId).orElseThrow(() -> new RoomNotFoundException(roomId));
         booking.setStatus(BookingStatus.IN_PROGRESS);
