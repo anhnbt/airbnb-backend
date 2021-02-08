@@ -10,6 +10,7 @@ import java.util.List;
 @Table(name = "rooms")
 public class Room extends AbstractEntity implements Serializable {
     private String name;
+    @Column(columnDefinition = "TEXT")
     private String description;
     private String address;
     @Column(name = "price_per_night")
