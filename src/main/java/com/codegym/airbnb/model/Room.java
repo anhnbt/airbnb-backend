@@ -32,7 +32,7 @@ public class Room implements Serializable {
     private List<Booking> bookings;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", nullable = false, updatable = false)
+    @JoinColumn(name = "user_id", nullable = true, updatable = false)
 //    @JsonIgnore
     private UserModel user;
 
