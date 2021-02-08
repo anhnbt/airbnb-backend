@@ -3,10 +3,9 @@ package com.codegym.airbnb.services;
 import com.codegym.airbnb.model.UserModel;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
-
 import java.util.Optional;
 
-public interface UserService {
+public interface UserService extends UserDetailsService {
 
     Iterable<UserModel> findAll();
 

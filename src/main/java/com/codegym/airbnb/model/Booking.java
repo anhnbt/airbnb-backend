@@ -13,20 +13,25 @@ import java.time.LocalDateTime;
 public class Booking extends AbstractEntity implements Serializable {
     @Column(name = "number_of_guests")
     private Byte numberOfGuests;
+
     @Column(name = "number_of_children")
     private Byte numberOfChildren;
+
     @Column(name = "number_of_infants")
     private Byte numberOfInfants;
+
     private LocalDate startDate;
     private LocalDate endDate;
+
     @Enumerated(EnumType.STRING)
     @Column(name = "status", length = 15)
     private BookingStatus status;
+
     @Column(name = "cancel_reservation_time", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private LocalDateTime cancelReservationTime;
 
     // fetch = FetchType.LAZY khi select đối tượng Booking thì mặc định không query các đối tượng User liên quan.
-    //CascadeType.ALL Tương ứng với tất cả các loại cascade. cascade={DETACH, MERGE, PERSIST, REFRESH, REMOVE}
+    // CascadeType.ALL Tương ứng với tất cả các loại cascade. cascade={DETACH, MERGE, PERSIST, REFRESH, REMOVE}
     @ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id", nullable = false, updatable = false)
 //    @JsonIgnore
@@ -37,12 +42,28 @@ public class Booking extends AbstractEntity implements Serializable {
 //    @JsonIgnore
     private Room room;
 
-    public Long getId() {
-        return id;
+    public Byte getNumberOfGuests() {
+        return numberOfGuests;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setNumberOfGuests(Byte numberOfGuests) {
+        this.numberOfGuests = numberOfGuests;
+    }
+
+    public Byte getNumberOfChildren() {
+        return numberOfChildren;
+    }
+
+    public void setNumberOfChildren(Byte numberOfChildren) {
+        this.numberOfChildren = numberOfChildren;
+    }
+
+    public Byte getNumberOfInfants() {
+        return numberOfInfants;
+    }
+
+    public void setNumberOfInfants(Byte numberOfInfants) {
+        this.numberOfInfants = numberOfInfants;
     }
 
     public LocalDate getStartDate() {
@@ -77,7 +98,7 @@ public class Booking extends AbstractEntity implements Serializable {
         this.cancelReservationTime = cancelReservationTime;
     }
 
-    public User getUser() {
+    public UserModel getUser() {
         return user;
     }
 
@@ -91,20 +112,5 @@ public class Booking extends AbstractEntity implements Serializable {
 
     public void setRoom(Room room) {
         this.room = room;
-    }
-
-    @Override
-    public String toString() {
-        return "Booking{" +
-                "id=" + id +
-                ", createdDate=" + createdDate +
-                ", modifiedDate=" + modifiedDate +
-                ", startDate=" + startDate +
-                ", endDate=" + endDate +
-                ", status=" + status +
-                ", cancelReservationTime=" + cancelReservationTime +
-                ", user=" + user +
-                ", room=" + room +
-                '}';
     }
 }

@@ -1,6 +1,6 @@
 package com.codegym.airbnb;
 
-import com.codegym.airbnb.model.User;
+import com.codegym.airbnb.model.UserModel;
 import com.codegym.airbnb.services.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 @Component
 public class DatabaseLoader implements CommandLineRunner {
 
-	private Logger logger = LoggerFactory.getLogger(DatabaseLoader.class);
+	private final Logger logger = LoggerFactory.getLogger(DatabaseLoader.class);
 
 	@Autowired
 	private UserService userService;
@@ -22,8 +22,9 @@ public class DatabaseLoader implements CommandLineRunner {
 	@Override
 	public void run(String... strings) throws Exception {
 		if (!userService.findByEmail("anhnbt@icloud.com").isPresent()) {
-			User user = new User();
+			UserModel user = new UserModel();
 			user.setName("Nguyen Ba Tuan Anh");
+			user.setUsername("anhnbt");
 			user.setEmail("anhnbt@icloud.com");
 			user.setPassword("123456");
 			user.setPhone("+84346868928");

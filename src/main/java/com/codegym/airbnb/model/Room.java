@@ -21,8 +21,7 @@ public class Room extends AbstractEntity implements Serializable {
     private Byte totalOfBathroom;
     private Boolean status;
 
-    @OneToMany(orphanRemoval = true)
-    @JoinColumn(name = "room_id")
+    @OneToMany(orphanRemoval = true, mappedBy = "room")
     private List<RoomImage> roomImages;
 
     @OneToMany(mappedBy = "room")
