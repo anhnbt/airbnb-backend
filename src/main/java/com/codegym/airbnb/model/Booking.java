@@ -28,7 +28,7 @@ public class Booking extends AbstractEntity implements Serializable {
     // fetch = FetchType.LAZY khi select đối tượng Booking thì mặc định không query các đối tượng User liên quan.
     //CascadeType.ALL Tương ứng với tất cả các loại cascade. cascade={DETACH, MERGE, PERSIST, REFRESH, REMOVE}
     @ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "user_id", nullable = false)
+    @JoinColumn(name = "user_id", nullable = false, updatable = false)
 //    @JsonIgnore
     private User user;
 
