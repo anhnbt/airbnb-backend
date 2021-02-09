@@ -17,6 +17,7 @@ import java.time.LocalDateTime;
 
 @RestController
 @RequestMapping("api/v1/bookings")
+@CrossOrigin("*")
 public class BookingController {
 
     @Autowired
@@ -54,12 +55,13 @@ public class BookingController {
     }
 
     @PutMapping("{id}/cancel")
-    public Response cancel(@PathVariable("id") Long id,
-        @RequestParam("localDateTime")
-        @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime localDateTime) {
+    public Response cancel(@PathVariable("id") Long id
+//        ,@RequestParam("localDateTime")
+//        @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime localDateTime
+    ) {
         Booking booking = bookingService.findById(id).orElseThrow(() -> new BookingNotFoundException(id));
         Response response = new Response();
-        booking.setCancelReservationTime(localDateTime);
+        booking.setCancelReservationTime(LocalDateTime.now());
         booking.setStatus(BookingStatus.CANCELLED);
         Booking newBooking = bookingService.save(booking);
         response.setData(newBooking);
