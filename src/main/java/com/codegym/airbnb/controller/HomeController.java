@@ -32,7 +32,7 @@ public class HomeController {
     @GetMapping("{id}")
     public Response findById(@PathVariable("id") Long id) {
         Response res = new Response();
-        Optional<Room> home = homeService.findByHomeId(id);
+        Optional<Room> home = homeService.findById(id);
         res.setData(home.orElseGet(() -> null));
         if (home.isPresent()) {
             res.setMessage("SUCCESS");
