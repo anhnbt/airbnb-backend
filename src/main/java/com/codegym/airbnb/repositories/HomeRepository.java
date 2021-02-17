@@ -18,7 +18,8 @@ public interface HomeRepository extends CrudRepository<Room, Long> {
     Iterable<Room> findAllRoomByProvinceId(int id);
 
     //    @Query("SELECT h.id, h.name, h.description, h.address, h.pricePerNight, h.numBedrooms, h.numBathrooms FROM Home h WHERE h.id = ?1")
-    @Query(value = "SELECT id, name, description, address, price_per_night, total_of_bedroom, total_of_bathroom, status,province_id, property_type, user_id FROM rooms WHERE id = ?1", nativeQuery = true)
+//    @Query(value = "SELECT id, name, description, address, price_per_night, total_of_bedroom, total_of_bathroom, status,province_id, property_type, user_id FROM rooms WHERE id = ?1", nativeQuery = true)
+    @Query(value = "SELECT * FROM rooms WHERE id = ?1", nativeQuery = true)
     Optional<Room> findByHomeId(Long id);
 
     @Query(nativeQuery = true,value = "call GetLastRoom")
