@@ -53,6 +53,15 @@ public class HomeController {
         res.setData(home);
         return res;
     }
+    @GetMapping("/address/{add}")
+    public Response findByAddress(@PathVariable("add") String add) {
+        Response res = new Response();
+        ArrayList<Room> home = (ArrayList<Room>) homeService.findAllByAddress(add);
+        res.setMessage("SUCCESS");
+        res.setStatus(HttpStatus.OK);
+        res.setData(home);
+        return res;
+    }
 
     @PostMapping
     public Response createPost(@RequestBody Room room) {
