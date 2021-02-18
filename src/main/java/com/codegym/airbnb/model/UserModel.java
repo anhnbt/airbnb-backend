@@ -55,6 +55,15 @@ public class UserModel extends AbstractEntity implements Serializable {
         return PASSWORD_ENCODER;
     }
 
+    public UserModel() {
+    }
+
+    public UserModel(@NotNull @Size(min = 3) String name, String username, @Email String email) {
+        this.name = name;
+        this.username = username;
+        this.email = email;
+    }
+
     public String getName() {
         return name;
     }
@@ -125,5 +134,14 @@ public class UserModel extends AbstractEntity implements Serializable {
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
+    }
+
+    @Override
+    public String toString() {
+        return "UserModel{" +
+                "name='" + name + '\'' +
+                ", username='" + username + '\'' +
+                ", email='" + email + '\'' +
+                '}';
     }
 }
