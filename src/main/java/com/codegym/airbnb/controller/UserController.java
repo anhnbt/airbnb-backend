@@ -1,9 +1,6 @@
 package com.codegym.airbnb.controller;
 
-import com.codegym.airbnb.model.Booking;
-import com.codegym.airbnb.model.Response;
-import com.codegym.airbnb.model.Room;
-import com.codegym.airbnb.model.UserModel;
+import com.codegym.airbnb.model.*;
 import com.codegym.airbnb.repositories.BookingRepository;
 import com.codegym.airbnb.services.HomeService;
 import com.codegym.airbnb.services.UserService;
@@ -13,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @CrossOrigin("*")
@@ -42,6 +40,16 @@ public class UserController {
         return res;
     }
 
+    @PostMapping("/changepw")
+    public Response changePassword(@RequestBody LoginForm loginForm){
+        UserModel userModel = userService.findByUserName(loginForm.getUsername()).get();
+        userModel.setPassword(loginForm.getPassword());
+        userService.save(userModel);
+        res.setData(userModel);
+        res.setStatus(HttpStatus.OK);
+        res.setMessage("SUCCESS");
+        return res;
+    }
     @PostMapping()
     public Response findByNameAndPassword(@RequestBody UserModel user){
         res.setData(userService.findByNameAndPassword(user.getName(), user.getPassword()).get());
