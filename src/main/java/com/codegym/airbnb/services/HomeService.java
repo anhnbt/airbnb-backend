@@ -8,6 +8,7 @@ public interface HomeService {
 
     Iterable<Room> findAll();
     Iterable<Room> findAllByCityId(int id);
+    Iterable<Room> findAllByAddress(String add);
 
     Iterable<Room> findAllCustomQuery();
 
