@@ -4,6 +4,7 @@ import com.codegym.airbnb.exception.BookingNotFoundException;
 import com.codegym.airbnb.exception.RoomNotFoundException;
 import com.codegym.airbnb.exception.UserNotFoundException;
 import com.codegym.airbnb.model.*;
+import com.codegym.airbnb.repositories.BookingOfCus;
 import com.codegym.airbnb.services.BookingService;
 import com.codegym.airbnb.services.HomeService;
 import com.codegym.airbnb.services.UserService;
@@ -28,6 +29,9 @@ public class BookingController {
 
     @Autowired
     private HomeService homeService;
+
+    @Autowired
+    private BookingOfCus bookingOfCus;
 
     @GetMapping
     public Iterable<Booking> all() {
@@ -73,4 +77,12 @@ public class BookingController {
 //        LocalDateTime t = timeStamp.toLocalDateTime();
     }
 
+    @GetMapping("user/{id}")
+    public Response getBookingsOfCus(@PathVariable("id") Long id) {
+        Response response = new Response();
+        response.setData(bookingOfCus.getBookingsOfCus(id));
+        response.setMessage("success");
+        response.setStatus(HttpStatus.OK);
+        return response;
+    }
 }
