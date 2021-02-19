@@ -45,6 +45,14 @@ public class UserController {
         res.setMessage("SUCCESS");
         return res;
     }
+    @GetMapping("edit-user/{un}")
+    public Response getOneByUsername(@PathVariable String un){
+        res.setData(userService.findByUserName(un));
+        res.setStatus(HttpStatus.OK);
+        res.setMessage("SUCCESS");
+        return res;
+    }
+
 
     @PostMapping("/changepw")
     public Response changePassword(@RequestBody LoginForm loginForm){
