@@ -1,11 +1,8 @@
 package com.codegym.airbnb.controller;
 
-import com.codegym.airbnb.model.Booking;
-import com.codegym.airbnb.model.Response;
-import com.codegym.airbnb.model.Room;
-import com.codegym.airbnb.model.UserModel;
-import com.codegym.airbnb.repositories.RoomPaging;
+import com.codegym.airbnb.model.*;
 import com.codegym.airbnb.repositories.BookingRepository;
+import com.codegym.airbnb.repositories.RoomPaging;
 import com.codegym.airbnb.services.HomeService;
 import com.codegym.airbnb.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +28,7 @@ public class UserController {
     @Autowired
     private RoomPaging roomPaging;
 
-    private Response res = new Response();
+    private final Response res = new Response();
 
     @GetMapping
     public Response getAll(){
@@ -51,12 +48,20 @@ public class UserController {
 
     @PostMapping("/changepw")
     public Response changePassword(@RequestBody LoginForm loginForm){
-        UserModel userModel = userService.findByUserName(loginForm.getUsername()).get();
-        userModel.setPassword(loginForm.getPassword());
-        userService.save(userModel);
-        res.setData(userModel);
-        res.setStatus(HttpStatus.OK);
-        res.setMessage("SUCCESS");
+
+        Optional<UserModel> userModel = userService.findByUserName(loginForm.getUsername());
+        if (userModel.isPresent()){
+            userModel.get().setPassword(loginForm.getPassword());
+            userService.save(userModel.get());
+            res.setData(userModel);
+            res.setMessage("SUCCESS");
+            res.setStatus(HttpStatus.OK);
+        }else {
+            res.setMessage("No user available");
+            res.setStatus(HttpStatus.NOT_FOUND);
+        }
+
+
         return res;
     }
     @PostMapping()
