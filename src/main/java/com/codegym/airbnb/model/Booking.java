@@ -133,6 +133,6 @@ public class Booking extends AbstractEntity implements Serializable {
     }
 
     public double getPrice() {
-        return (this.numNight * this.room.getPricePerNight());
+        return (this.getNumNight() * this.room.getPricePerNight());
     }
 }
