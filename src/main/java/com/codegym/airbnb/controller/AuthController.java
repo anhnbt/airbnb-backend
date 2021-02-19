@@ -19,6 +19,11 @@ import org.springframework.web.bind.annotation.*;
 import javax.swing.text.html.Option;
 import java.time.LocalDateTime;
 import java.util.*;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Optional;
+import java.util.Set;
 
 @RestController
 @RequestMapping("api/v1/users")
@@ -44,9 +49,16 @@ public class AuthController {
         if (userService.existsByUsername(user.getUsername())) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-        UserModel newUser = new UserModel();
-        newUser.setUsername(user.getUsername());
-        newUser.setPassword(user.getPassword());
+        System.out.println(1);
+        user.setActive(true);
+        user.setCreatedDate(LocalDateTime.now());
+        user.setModifiedDate(LocalDateTime.now());
+//        this.userService.save(user);
+//        newUser.setUsername(user.getUsername());
+//        newUser.setPassword("123456"); // Lỗi ở dòng này chứ đâu
+//        // Khi user post register lên thì mật khẩu đã bị mã hóa rồi
+//        // Sau khi setPassword tiếp lần nữa thì nó lại mã hóa thêm 1 lần nữa
+        user.setName(user.getUsername());
         Set<Role> roles = new HashSet<>();
         user.getRoles().forEach(role -> {
             if (role.getName().equals("admin")) {
@@ -57,8 +69,8 @@ public class AuthController {
                 roles.add(userRole);
             }
         });
-        newUser.setRoles(roles);
-        userService.save(newUser);
+        user.setRoles(roles);
+        userService.save(user);
         return new ResponseEntity(HttpStatus.OK);
     }
 
