@@ -1,10 +1,16 @@
 package com.codegym.airbnb.controller;
 
-import com.codegym.airbnb.model.*;
+import com.codegym.airbnb.model.Booking;
+import com.codegym.airbnb.model.Response;
+import com.codegym.airbnb.model.Room;
+import com.codegym.airbnb.model.UserModel;
+import com.codegym.airbnb.repositories.RoomPaging;
 import com.codegym.airbnb.repositories.BookingRepository;
 import com.codegym.airbnb.services.HomeService;
 import com.codegym.airbnb.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,6 +28,9 @@ public class UserController {
     private HomeService homeService;
     @Autowired
     private BookingRepository bookingService;
+    @Autowired
+    private RoomPaging roomPaging;
+
     private Response res = new Response();
 
     @GetMapping
@@ -59,14 +68,21 @@ public class UserController {
     }
 
     @GetMapping("/{id}/rooms")
-    public Response getRooms(@PathVariable long id){
+    public Response getRooms(@PathVariable long id,
+                             @RequestParam(defaultValue = "0") int page,
+                             @RequestParam(defaultValue = "4") int size){
         List<Room> roomList = new ArrayList<>();
+        PageRequest paging = PageRequest.of(page, size);
+        Page<Room> pageRooms;
+
+        pageRooms = roomPaging.findAllByUserId(id, paging);
+
         for (Room room : homeService.findAll()) {
             if(room.getUser().getId() == id) {
                 roomList.add(room);
             }
         }
-        res.setData(roomList);
+        res.setData(pageRooms);
         res.setStatus(HttpStatus.OK);
         res.setMessage("SUCCESS");
         return res;

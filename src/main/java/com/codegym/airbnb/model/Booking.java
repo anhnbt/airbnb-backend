@@ -33,6 +33,9 @@ public class Booking extends AbstractEntity implements Serializable {
     @Transient
     private int numNight;
 
+    @Transient
+    private double price;
+
     // fetch = FetchType.LAZY khi select đối tượng Booking thì mặc định không query các đối tượng User liên quan.
     // CascadeType.ALL Tương ứng với tất cả các loại cascade. cascade={DETACH, MERGE, PERSIST, REFRESH, REMOVE}
     @ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
@@ -123,5 +126,13 @@ public class Booking extends AbstractEntity implements Serializable {
 
     public void setNumNight(int numNight) {
         this.numNight = numNight;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
+    public double getPrice() {
+        return (this.numNight * this.room.getPricePerNight());
     }
 }
