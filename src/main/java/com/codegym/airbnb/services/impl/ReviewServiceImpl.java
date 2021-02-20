@@ -26,4 +26,9 @@ public class ReviewServiceImpl implements ReviewService {
     public Review save(Review review) {
         return reviewRepository.save(review);
     }
+
+    @Override
+    public Iterable<Review> findByRoomIdQuery(Long id) {
+        return reviewRepository.findByRoomIdQuery(id);
+    }
 }

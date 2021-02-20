@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("api/review")
@@ -23,7 +24,7 @@ public class ReviewController {
     Response res = new Response();
 
     @GetMapping
-    public Response findAll(){
+    public Response findAll() {
         res.setData(reviewService.findAll());
         res.setStatus(HttpStatus.OK);
         res.setMessage("SUCCESS");
@@ -31,23 +32,42 @@ public class ReviewController {
     }
 
     @GetMapping("/{id}")
-    public Response findById(@PathVariable Long id){
+    public Response findById(@PathVariable Long id) {
         res.setData(reviewService.findById(id).get());
         res.setStatus(HttpStatus.OK);
         res.setMessage("SUCCESS");
         return res;
     }
 
-    @PostMapping
-    public Response save(@RequestBody Review review, @PathVariable Long id){
-        Booking booking = bookingService.findById(id).get();
-        review.setBooking(booking);
-        review.setActive(true);
-        review.setCreatedDate(LocalDateTime.now());
-        review.setModifiedDate(LocalDateTime.now());
-        res.setData(reviewService.save(review));
+    @GetMapping("/room/{id}")
+    public Response findByRoomIdQuery(@PathVariable Long id) {
+        res.setData(reviewService.findByRoomIdQuery(id));
         res.setStatus(HttpStatus.OK);
         res.setMessage("SUCCESS");
+        return res;
+    }
+
+    @PostMapping()
+    public Response save(@RequestBody Review review) {
+        Optional<Booking> booking = bookingService.findById(review.getBooking().getId());
+        System.out.println(1);
+        if (booking.isPresent()) {
+            Review newReview = new Review();
+            newReview.setRating(review.getRating());
+            newReview.setReviewBody(review.getReviewBody());
+            newReview.setBooking(booking.get());
+            newReview.setActive(true);
+            newReview.setCreatedDate(LocalDateTime.now());
+            newReview.setModifiedDate(LocalDateTime.now());
+            Review reviewSave = reviewService.save(newReview);
+            res.setData(reviewSave);
+            res.setStatus(HttpStatus.OK);
+            res.setMessage("SUCCESS");
+        } else {
+            res.setData(null);
+            res.setStatus(HttpStatus.NOT_FOUND);
+            res.setMessage("Booking not found");
+        }
         return res;
     }
 

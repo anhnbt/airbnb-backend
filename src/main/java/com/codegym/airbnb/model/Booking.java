@@ -30,8 +30,8 @@ public class Booking extends AbstractEntity implements Serializable {
     @Column(name = "cancel_reservation_time", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private LocalDateTime cancelReservationTime;
 
-    @Transient
-    private int numNight;
+//    @Transient
+//    private int numNight;
 
     // fetch = FetchType.LAZY khi select đối tượng Booking thì mặc định không query các đối tượng User liên quan.
     // CascadeType.ALL Tương ứng với tất cả các loại cascade. cascade={DETACH, MERGE, PERSIST, REFRESH, REMOVE}
@@ -117,11 +117,11 @@ public class Booking extends AbstractEntity implements Serializable {
         this.room = room;
     }
 
-    public int getNumNight() {
-        return this.endDate.getDayOfMonth() - this.startDate.getDayOfMonth();
-    }
+//    public int getNumNight() {
+//        return this.endDate.getDayOfMonth() - this.startDate.getDayOfMonth();
+//    }
 
-    public void setNumNight(int numNight) {
-        this.numNight = numNight;
-    }
+//    public void setNumNight(int numNight) {
+//        this.numNight = numNight;
+//    }
 }
