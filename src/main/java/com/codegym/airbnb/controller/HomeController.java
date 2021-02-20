@@ -1,13 +1,18 @@
 package com.codegym.airbnb.controller;
 
+import com.codegym.airbnb.model.JwtResponse;
 import com.codegym.airbnb.model.Response;
 import com.codegym.airbnb.model.Room;
+import com.codegym.airbnb.security.JwtUtil;
 import com.codegym.airbnb.services.HomeService;
 import com.codegym.airbnb.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Optional;
 
@@ -20,6 +25,8 @@ public class HomeController {
     private HomeService homeService;
     @Autowired
     private UserService userService;
+    @Autowired
+    private JwtUtil jwtUtil;
 
     // Cho nay anh Duy viet
     @GetMapping
@@ -67,9 +74,13 @@ public class HomeController {
     }
 
     @PostMapping
-    public Response createPost(@RequestBody Room room) {
+    public Response createPost(@RequestBody Room room, @RequestHeader (name="Authorization") String tokenReq) {
+        String token = tokenReq.substring(7);
+        String userName = jwtUtil.extractUsername(token);
         Response res = new Response();
-        room.setUser(userService.findById((long) 1).get());
+        room.setUser(userService.findByUserName(userName).get());
+        room.setCreatedDate(LocalDateTime.now());
+        room.setModifiedDate(LocalDateTime.now());
         res.setData(homeService.save(room));
         res.setMessage("SUCCESS");
         res.setStatus(HttpStatus.OK);
