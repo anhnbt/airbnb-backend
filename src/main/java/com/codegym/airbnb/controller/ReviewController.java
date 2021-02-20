@@ -50,7 +50,6 @@ public class ReviewController {
     @PostMapping()
     public Response save(@RequestBody Review review) {
         Optional<Booking> booking = bookingService.findById(review.getBooking().getId());
-        System.out.println(1);
         if (booking.isPresent()) {
             Review newReview = new Review();
             newReview.setRating(review.getRating());

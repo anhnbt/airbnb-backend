@@ -12,6 +12,7 @@ import java.util.Optional;
 public class ReviewServiceImpl implements ReviewService {
     @Autowired
     private ReviewRepository reviewRepository;
+
     @Override
     public Iterable<Review> findAll() {
         return reviewRepository.findAll();
