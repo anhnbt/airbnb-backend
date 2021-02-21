@@ -12,5 +12,8 @@ public interface BookingService  {
 
     Optional<Booking> findById(Long id);
 
-    Optional<Booking> findByRoomIdAndUserId(Long id, Long id_user);
+    Optional<Booking> findByRoomIdAndUserId(Long room_id, Long id_user);
+
+    Optional<Booking> findByRoomId(Long id);
+
 }

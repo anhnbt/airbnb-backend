@@ -34,4 +34,14 @@ public class BookingServiceImpl implements BookingService {
     public Optional<Booking> findByRoomIdAndUserId(Long id, Long id_user) {
         return bookingRepository.findByRoomIdAndUserId(id, id_user);
     }
+
+    @Override
+    public Optional<Booking> findByRoomIdAndUserId(Long room_id, Long id_user) {
+        return bookingRepository.findByRoomIdAndUserId(room_id, id_user);
+    }
+
+    @Override
+    public Optional<Booking> findByRoomId(Long id) {
+        return bookingRepository.findByRoomId(id);
+    }
 }
