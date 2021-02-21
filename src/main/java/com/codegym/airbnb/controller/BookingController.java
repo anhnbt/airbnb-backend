@@ -85,4 +85,13 @@ public class BookingController {
         response.setStatus(HttpStatus.OK);
         return response;
     }
+
+    @GetMapping("{room_id}/{user_id}")
+    public Response getBookingsOfCus(@PathVariable Long room_id, @PathVariable Long user_id) {
+        Response response = new Response();
+        response.setData(bookingService.findByRoomIdAndUserId(room_id, user_id));
+        response.setMessage("success");
+        response.setStatus(HttpStatus.OK);
+        return response;
+    }
 }
