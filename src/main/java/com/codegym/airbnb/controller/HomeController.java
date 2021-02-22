@@ -5,6 +5,7 @@ import com.codegym.airbnb.model.Response;
 import com.codegym.airbnb.model.Room;
 import com.codegym.airbnb.security.JwtUtil;
 import com.codegym.airbnb.services.HomeService;
+import com.codegym.airbnb.services.ReviewService;
 import com.codegym.airbnb.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpRequest;
@@ -27,12 +28,18 @@ public class HomeController {
     private UserService userService;
     @Autowired
     private JwtUtil jwtUtil;
+    @Autowired
+    private ReviewService reviewService;
 
     // Cho nay anh Duy viet
     @GetMapping
     public Response home() {
         Response res = new Response();
-        res.setData(homeService.findAll());
+        Iterable<Room> rooms = homeService.findAll();
+        for (Room room : rooms) {
+            room.setAvgRatting(reviewService.findAvgByRoomIdQuery(room.getId()));
+        }
+        res.setData(rooms);
         // Fix lai trả về dữ liệu có phân trang.
         res.setMessage("SUCCESS");
         res.setStatus(HttpStatus.OK);

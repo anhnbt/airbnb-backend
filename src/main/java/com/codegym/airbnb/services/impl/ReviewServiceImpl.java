@@ -32,4 +32,9 @@ public class ReviewServiceImpl implements ReviewService {
     public Iterable<Review> findByRoomIdQuery(Long id) {
         return reviewRepository.findByRoomIdQuery(id);
     }
+
+    @Override
+    public Object findAvgByRoomIdQuery(Long id) {
+        return reviewRepository.findAvgRattingByRoomIdQuery(id);
+    }
 }

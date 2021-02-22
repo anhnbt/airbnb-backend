@@ -40,6 +40,17 @@ public class Room extends AbstractEntity implements Serializable {
     @JoinColumn(name = "property_type", nullable = false, updatable = false)
     private PropertyType propertyType;
 
+    @Transient
+    private  Object avgRatting;
+
+    public Object getAvgRatting() {
+        return avgRatting;
+    }
+
+    public void setAvgRatting(Object avgRatting) {
+        this.avgRatting = avgRatting;
+    }
+
     public String getName() {
         return name;
     }
