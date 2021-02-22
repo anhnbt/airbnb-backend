@@ -1,17 +1,14 @@
 package com.codegym.airbnb.controller;
 
-import com.codegym.airbnb.model.JwtResponse;
 import com.codegym.airbnb.model.Response;
 import com.codegym.airbnb.model.Room;
 import com.codegym.airbnb.security.JwtUtil;
 import com.codegym.airbnb.services.HomeService;
 import com.codegym.airbnb.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Optional;
@@ -28,7 +25,6 @@ public class HomeController {
     @Autowired
     private JwtUtil jwtUtil;
 
-    // Cho nay anh Duy viet
     @GetMapping
     public Response home() {
         Response res = new Response();
@@ -63,6 +59,7 @@ public class HomeController {
         res.setData(home);
         return res;
     }
+
     @GetMapping("/address/{add}")
     public Response findByAddress(@PathVariable("add") String add) {
         Response res = new Response();
@@ -74,7 +71,7 @@ public class HomeController {
     }
 
     @PostMapping
-    public Response createPost(@RequestBody Room room, @RequestHeader (name="Authorization") String tokenReq) {
+    public Response createPost(@RequestBody Room room, @RequestHeader(name = "Authorization") String tokenReq) {
         String token = tokenReq.substring(7);
         String userName = jwtUtil.extractUsername(token);
         Response res = new Response();
@@ -95,6 +92,18 @@ public class HomeController {
                 homeService.save(room);
                 break;
             }
+        }
+    }
+
+    @PutMapping("{id}/cancelled")
+    public Response cancelled(@PathVariable("id") Long id, @RequestBody Room roomObj) {
+        Optional<Room> room = homeService.findById(id);
+        if (room.isPresent()) {
+            room.get().setCancelled(roomObj.getCancelled());
+            homeService.save(room.get());
+            return new Response(room, "success", HttpStatus.OK);
+        } else {
+            return new Response(null, "Not Found", HttpStatus.NOT_FOUND);
         }
     }
 }

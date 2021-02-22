@@ -19,7 +19,9 @@ public class Room extends AbstractEntity implements Serializable {
     private Byte totalOfBedroom;
     @Column(name = "total_of_bathroom")
     private Byte totalOfBathroom;
-    private Boolean status;
+    @Column(name = "cancelled", nullable = false)
+    private Boolean cancelled = false;
+    private Boolean status = true;
 
     @OneToMany(orphanRemoval = true, mappedBy = "room")
     private List<RoomImage> roomImages;
@@ -134,5 +136,13 @@ public class Room extends AbstractEntity implements Serializable {
 
     public void setStatus(Boolean status) {
         this.status = status;
+    }
+
+    public Boolean getCancelled() {
+        return cancelled;
+    }
+
+    public void setCancelled(Boolean cancelled) {
+        this.cancelled = cancelled;
     }
 }

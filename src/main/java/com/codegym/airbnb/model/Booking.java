@@ -5,7 +5,6 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "bookings")
@@ -26,9 +25,6 @@ public class Booking extends AbstractEntity implements Serializable {
     @Enumerated(EnumType.STRING)
     @Column(name = "status", length = 15)
     private BookingStatus status;
-
-    @Column(name = "cancel_reservation_time", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
-    private LocalDateTime cancelReservationTime;
 
     @Transient
     private int numNight;
@@ -94,14 +90,6 @@ public class Booking extends AbstractEntity implements Serializable {
 
     public void setStatus(BookingStatus status) {
         this.status = status;
-    }
-
-    public LocalDateTime getCancelReservationTime() {
-        return cancelReservationTime;
-    }
-
-    public void setCancelReservationTime(LocalDateTime cancelReservationTime) {
-        this.cancelReservationTime = cancelReservationTime;
     }
 
     public UserModel getUser() {
