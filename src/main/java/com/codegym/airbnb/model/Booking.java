@@ -1,11 +1,13 @@
 package com.codegym.airbnb.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "bookings")
@@ -42,6 +44,18 @@ public class Booking extends AbstractEntity implements Serializable {
     @JoinColumn(name = "user_id", nullable = false, updatable = false)
 //    @JsonIgnore
     private UserModel user;
+
+    public List<Review> getReviews() {
+        return reviews;
+    }
+
+    public void setReviews(List<Review> reviews) {
+        this.reviews = reviews;
+    }
+
+    @OneToMany(mappedBy = "booking")
+    @JsonIgnore
+    private List<Review> reviews;
 
     @ManyToOne(optional = false, cascade = CascadeType.ALL)
     @JoinColumn(name = "room_id")
