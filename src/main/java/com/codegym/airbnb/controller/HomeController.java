@@ -3,6 +3,10 @@ package com.codegym.airbnb.controller;
 import com.codegym.airbnb.model.Response;
 import com.codegym.airbnb.model.Room;
 import com.codegym.airbnb.services.HomeService;
+
+import com.codegym.airbnb.services.ReviewService;
+import com.codegym.airbnb.services.UserService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -18,10 +22,22 @@ public class HomeController {
     @Autowired
     private HomeService homeService;
 
+    @Autowired
+    private UserService userService;
+    @Autowired
+    private JwtUtil jwtUtil;
+    @Autowired
+    private ReviewService reviewService;
+
+
     @GetMapping
     public Response home() {
         Response res = new Response();
-        res.setData(homeService.findAll());
+        Iterable<Room> rooms = homeService.findAll();
+        for (Room room : rooms) {
+            room.setAvgRatting(reviewService.findAvgByRoomIdQuery(room.getId()));
+        }
+        res.setData(rooms);
         // Fix lai trả về dữ liệu có phân trang.
         res.setMessage("SUCCESS");
         res.setStatus(HttpStatus.OK);

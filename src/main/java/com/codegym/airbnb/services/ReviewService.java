@@ -13,4 +13,6 @@ public interface ReviewService {
 
     Iterable<Review> findByRoomIdQuery(Long id);
 
+    Object findAvgByRoomIdQuery(Long id);
+
 }

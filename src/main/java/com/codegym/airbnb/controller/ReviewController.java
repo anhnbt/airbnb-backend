@@ -47,6 +47,14 @@ public class ReviewController {
         return res;
     }
 
+    @GetMapping("/avg-ratting/{id}")
+    public Response findAvgRattingByRoomIdQuery(@PathVariable Long id) {
+        res.setData(reviewService.findAvgByRoomIdQuery(id));
+        res.setStatus(HttpStatus.OK);
+        res.setMessage("SUCCESS");
+        return res;
+    }
+
     @PostMapping()
     public Response save(@RequestBody Review review) {
         Optional<Booking> booking = bookingService.findById(review.getBooking().getId());
