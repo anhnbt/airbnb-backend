@@ -1,5 +1,7 @@
 package com.codegym.airbnb.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -12,6 +14,7 @@ public class Review extends AbstractEntity implements Serializable {
 
     @ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "booking_id")
+//    @JsonIgnore
     private Booking booking;
 
     public Byte getRating() {
