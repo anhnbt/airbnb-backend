@@ -29,9 +29,6 @@ public class Booking extends AbstractEntity implements Serializable {
     @Column(name = "status", length = 15)
     private BookingStatus status;
 
-    @Column(name = "cancel_reservation_time", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
-    private LocalDateTime cancelReservationTime;
-
     @Transient
     private int numNight;
 
@@ -108,14 +105,6 @@ public class Booking extends AbstractEntity implements Serializable {
 
     public void setStatus(BookingStatus status) {
         this.status = status;
-    }
-
-    public LocalDateTime getCancelReservationTime() {
-        return cancelReservationTime;
-    }
-
-    public void setCancelReservationTime(LocalDateTime cancelReservationTime) {
-        this.cancelReservationTime = cancelReservationTime;
     }
 
     public UserModel getUser() {

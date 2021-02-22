@@ -9,7 +9,6 @@ import com.codegym.airbnb.services.BookingService;
 import com.codegym.airbnb.services.HomeService;
 import com.codegym.airbnb.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -44,7 +43,7 @@ public class BookingController {
     }
 
     @PostMapping(value = "{roomId}/{userId}", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public Booking save(
+    public Response save(
             @PathVariable("roomId") Long roomId,
             @PathVariable("userId") Long userId,
             @RequestBody Booking booking) {
@@ -55,26 +54,19 @@ public class BookingController {
         booking.setRoom(room);
         booking.setCreatedDate(LocalDateTime.now());
         booking.setModifiedDate(LocalDateTime.now());
-        return bookingService.save(booking);
+        return new Response(bookingService.save(booking), "success", HttpStatus.OK);
     }
 
-    @PutMapping("{id}/cancel")
-    public Response cancel(@PathVariable("id") Long id
-//        ,@RequestParam("localDateTime")
-//        @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime localDateTime
-    ) {
+    @PutMapping("{id}/cancelled")
+    public Response cancelled(@PathVariable("id") Long id) {
         Booking booking = bookingService.findById(id).orElseThrow(() -> new BookingNotFoundException(id));
         Response response = new Response();
-        booking.setCancelReservationTime(LocalDateTime.now());
         booking.setStatus(BookingStatus.CANCELLED);
         Booking newBooking = bookingService.save(booking);
         response.setData(newBooking);
         response.setMessage("success");
         response.setStatus(HttpStatus.OK);
         return response;
-//        {{ date | date : format : timezone }}
-//        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-//        LocalDateTime t = timeStamp.toLocalDateTime();
     }
 
     @GetMapping("user/{id}")

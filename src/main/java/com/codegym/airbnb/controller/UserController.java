@@ -31,7 +31,7 @@ public class UserController {
     private final Response res = new Response();
 
     @GetMapping
-    public Response getAll(){
+    public Response getAll() {
         res.setData(userService.findAll());
         res.setStatus(HttpStatus.OK);
         res.setMessage("SUCCESS");
@@ -39,14 +39,15 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
-    public Response getOne(@PathVariable long id){
+    public Response getOne(@PathVariable long id) {
         res.setData(userService.findById(id));
         res.setStatus(HttpStatus.OK);
         res.setMessage("SUCCESS");
         return res;
     }
+
     @GetMapping("edit-user/{un}")
-    public Response getOneByUsername(@PathVariable String un){
+    public Response getOneByUsername(@PathVariable String un) {
         res.setData(userService.findByUserName(un));
         res.setStatus(HttpStatus.OK);
         res.setMessage("SUCCESS");
@@ -55,16 +56,16 @@ public class UserController {
 
 
     @PostMapping("/changepw")
-    public Response changePassword(@RequestBody LoginForm loginForm){
+    public Response changePassword(@RequestBody LoginForm loginForm) {
 
         Optional<UserModel> userModel = userService.findByUserName(loginForm.getUsername());
-        if (userModel.isPresent()){
+        if (userModel.isPresent()) {
             userModel.get().setPassword(loginForm.getPassword());
             userService.save(userModel.get());
             res.setData(userModel);
             res.setMessage("SUCCESS");
             res.setStatus(HttpStatus.OK);
-        }else {
+        } else {
             res.setMessage("No user available");
             res.setStatus(HttpStatus.NOT_FOUND);
         }
@@ -72,9 +73,19 @@ public class UserController {
 
         return res;
     }
+
     @PostMapping()
-    public Response findByNameAndPassword(@RequestBody UserModel user){
+    public Response findByNameAndPassword(@RequestBody UserModel user) {
         res.setData(userService.findByNameAndPassword(user.getName(), user.getPassword()).get());
+        res.setStatus(HttpStatus.OK);
+        res.setMessage("SUCCESS");
+        return res;
+    }
+
+    @PostMapping("/edit")
+    public Response editUser(@RequestBody UserModel user) {
+        userService.save(user);
+        res.setData(user);
         res.setStatus(HttpStatus.OK);
         res.setMessage("SUCCESS");
         return res;
@@ -83,7 +94,7 @@ public class UserController {
     @GetMapping("/{id}/rooms")
     public Response getRooms(@PathVariable long id,
                              @RequestParam(defaultValue = "0") int page,
-                             @RequestParam(defaultValue = "4") int size){
+                             @RequestParam(defaultValue = "4") int size) {
         List<Room> roomList = new ArrayList<>();
         PageRequest paging = PageRequest.of(page, size);
         Page<Room> pageRooms;
@@ -91,7 +102,7 @@ public class UserController {
         pageRooms = roomPaging.findAllByUserId(id, paging);
 
         for (Room room : homeService.findAll()) {
-            if(room.getUser().getId() == id) {
+            if (room.getUser().getId() == id) {
                 roomList.add(room);
             }
         }
@@ -102,10 +113,10 @@ public class UserController {
     }
 
     @GetMapping("/{id}/bookings")
-    public Response getBookings(@PathVariable long id){
+    public Response getBookings(@PathVariable long id) {
         List<Booking> bookings = new ArrayList<>();
         for (Booking booking : bookingService.findAll()) {
-            if(booking.getUser().getId() == id) {
+            if (booking.getUser().getId() == id) {
                 bookings.add(booking);
             }
         }
