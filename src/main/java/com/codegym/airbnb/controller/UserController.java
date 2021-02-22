@@ -11,13 +11,14 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 @RestController
 @CrossOrigin("*")
-@RequestMapping("api/user")
+@RequestMapping("api/v1/users")
 public class UserController {
     @Autowired
     private UserService userService;
@@ -39,7 +40,7 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
-    public Response getOne(@PathVariable long id) {
+    public Response getOne(@PathVariable Long id) {
         res.setData(userService.findById(id));
         res.setStatus(HttpStatus.OK);
         res.setMessage("SUCCESS");
@@ -54,31 +55,39 @@ public class UserController {
         return res;
     }
 
-
-    @PostMapping("/changepw")
-    public Response changePassword(@RequestBody LoginForm loginForm) {
-
-        Optional<UserModel> userModel = userService.findByUserName(loginForm.getUsername());
+    @PutMapping("{id}")
+    public Response updatePassword(@RequestBody LoginForm loginForm, @PathVariable Long id) {
+        Optional<UserModel> userModel = userService.findById(id);
         if (userModel.isPresent()) {
             userModel.get().setPassword(loginForm.getPassword());
             userService.save(userModel.get());
             res.setData(userModel);
-            res.setMessage("SUCCESS");
+            res.setMessage("success");
             res.setStatus(HttpStatus.OK);
         } else {
             res.setMessage("No user available");
             res.setStatus(HttpStatus.NOT_FOUND);
         }
-
-
         return res;
     }
 
-    @PostMapping()
-    public Response findByNameAndPassword(@RequestBody UserModel user) {
-        res.setData(userService.findByNameAndPassword(user.getName(), user.getPassword()).get());
-        res.setStatus(HttpStatus.OK);
-        res.setMessage("SUCCESS");
+    @PostMapping("{id}")
+    public Response update(@RequestBody UserModel user, @PathVariable("id") Long id) {
+        Optional<UserModel> userModel = userService.findById(id);
+        if (userModel.isPresent()) {
+            userModel.get().setName(user.getName());
+            userModel.get().setDateOfBirth(user.getDateOfBirth());
+            userModel.get().setEmail(user.getEmail());
+            userModel.get().setPhone(user.getPhone());
+            userModel.get().setModifiedDate(LocalDateTime.now());
+            res.setData(userService.save(userModel.get()));
+            res.setMessage("success");
+            res.setStatus(HttpStatus.OK);
+        } else {
+            res.setData(null);
+            res.setMessage("Not Found");
+            res.setStatus(HttpStatus.NOT_FOUND);
+        }
         return res;
     }
 

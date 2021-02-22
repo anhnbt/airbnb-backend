@@ -51,13 +51,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf().disable()
                 .authorizeRequests().antMatchers(
                 "/",
-                "/api/v1/users/login",
-                "/api/v1/users/register",
-                "/api/v1/users/login-with-google",
+                "/api/v1/auth/login",
+                "/api/v1/auth/register",
+                "/api/v1/auth/login-with-google",
                 "/api/v1/rooms/**",
-                "/api/city/**",
-                "/api/propertyType/**"
-//				"/api/**"
+                "/api/v1/province/**",
+                "/api/v1/propertyType/**",
+                "/api/v1/review/**"
         ).permitAll()
                 .anyRequest().authenticated()
                 .and()

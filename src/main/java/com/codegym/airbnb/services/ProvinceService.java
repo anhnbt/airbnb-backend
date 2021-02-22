@@ -4,9 +4,13 @@ import com.codegym.airbnb.model.Province;
 
 import java.util.Optional;
 
-public interface CityService {
-    Iterable<Province> getAll();
-    Optional<Province> getOne(int id);
+public interface ProvinceService {
+
+    Iterable<Province> findAll();
+
     Province save(Province province);
-    Province delete(int id);
+
+    void delete(Long id);
+
+    Optional<Province> findById(Long id);
 }

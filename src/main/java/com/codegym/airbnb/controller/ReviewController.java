@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("api/review")
+@RequestMapping("api/v1/review")
 @CrossOrigin("*")
 public class ReviewController {
 
@@ -47,7 +47,7 @@ public class ReviewController {
         return res;
     }
 
-    @PostMapping()
+    @PostMapping
     public Response save(@RequestBody Review review) {
         Optional<Booking> booking = bookingService.findById(review.getBooking().getId());
         if (booking.isPresent()) {

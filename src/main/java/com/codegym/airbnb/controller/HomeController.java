@@ -43,10 +43,10 @@ public class HomeController {
         return res;
     }
 
-    @GetMapping("/city/{id}")
-    public Response findByCityId(@PathVariable("id") int id) {
+    @GetMapping("/province/{id}")
+    public Response findByProvinceId(@PathVariable("id") int id) {
         Response res = new Response();
-        ArrayList<Room> home = (ArrayList<Room>) homeService.findAllByCityId(id);
+        ArrayList<Room> home = (ArrayList<Room>) homeService.findAllByProvinceId(id);
         res.setMessage("SUCCESS");
         res.setStatus(HttpStatus.OK);
         res.setData(home);

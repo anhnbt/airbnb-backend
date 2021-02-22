@@ -11,10 +11,11 @@ import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 @RestController
 @CrossOrigin("*")
-@RequestMapping("api/host")
+@RequestMapping("api/v1/host")
 public class HostController {
     @Autowired
     private HomeService homeService;
@@ -37,13 +38,13 @@ public class HostController {
     }
 
     @PutMapping("{id}/status")
-    public void changeStatus(@PathVariable int id) {
-        for (Room room : homeService.findAll()) {
-            if (room.getId() == id) {
-                room.setStatus(!room.isStatus());
-                homeService.save(room);
-                break;
-            }
+    public Response changeStatus(@PathVariable Long id) {
+        Optional<Room> room = homeService.findById(id);
+        if (room.isPresent()) {
+            room.get().setStatus(!room.get().isStatus());
+            return new Response(homeService.save(room.get()), "success", HttpStatus.OK);
+        } else {
+            return new Response(null, "Not Found", HttpStatus.NOT_FOUND);
         }
     }
 }
