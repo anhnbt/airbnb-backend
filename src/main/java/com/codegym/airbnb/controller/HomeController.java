@@ -2,16 +2,11 @@ package com.codegym.airbnb.controller;
 
 import com.codegym.airbnb.model.Response;
 import com.codegym.airbnb.model.Room;
-import com.codegym.airbnb.security.JwtUtil;
 import com.codegym.airbnb.services.HomeService;
-import com.codegym.airbnb.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
-import java.security.Principal;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Optional;
 
@@ -22,8 +17,6 @@ public class HomeController {
 
     @Autowired
     private HomeService homeService;
-    @Autowired
-    private UserService userService;
 
     @GetMapping
     public Response home() {
