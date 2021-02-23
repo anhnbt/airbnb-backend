@@ -14,6 +14,7 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("api/v1/bookings")
@@ -49,6 +50,10 @@ public class BookingController {
             @RequestBody Booking booking) {
         UserModel user = userService.findById(userId).orElseThrow(() -> new UserNotFoundException(userId));
         Room room = homeService.findById(roomId).orElseThrow(() -> new RoomNotFoundException(roomId));
+        Optional<Booking> oldBooking = bookingService.findByStartDateAndUserIdAndRoomId(userId, roomId, booking.getStartDate());
+        if (oldBooking.isPresent()) {
+            return new Response(null, "Bạn chỉ có thể đặt phòng này một lần trong cùng 1 ngày!", HttpStatus.CONFLICT);
+        }
         booking.setStatus(BookingStatus.IN_PROGRESS);
         booking.setUser(user);
         booking.setRoom(room);

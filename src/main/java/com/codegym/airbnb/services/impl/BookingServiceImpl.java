@@ -6,7 +6,7 @@ import com.codegym.airbnb.services.BookingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import java.time.LocalDate;
 import java.util.Optional;
 
 @Service
@@ -39,5 +39,10 @@ public class BookingServiceImpl implements BookingService {
     @Override
     public Optional<Booking> findByRoomId(Long id) {
         return bookingRepository.findByRoomId(id);
+    }
+
+    @Override
+    public Optional<Booking> findByStartDateAndUserIdAndRoomId(Long userId, Long roomId, LocalDate date) {
+        return bookingRepository.findByStartDateAndUserIdAndRoomId(userId, roomId, date);
     }
 }
