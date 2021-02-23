@@ -33,9 +33,6 @@ public class AuthController {
     private AuthenticationManager authenticationManager;
 
     @Autowired
-    private JwtService jwtService;
-
-    @Autowired
     private JwtUtil jwtUtil;
 
     @Autowired
@@ -53,8 +50,6 @@ public class AuthController {
         user.setActive(true);
         user.setCreatedDate(LocalDateTime.now());
         user.setModifiedDate(LocalDateTime.now());
-//        this.userService.save(user);
-//        newUser.setUsername(user.getUsername());
 //        newUser.setPassword("123456"); // Lỗi ở dòng này chứ đâu
 //        // Khi user post register lên thì mật khẩu đã bị mã hóa rồi
 //        // Sau khi setPassword tiếp lần nữa thì nó lại mã hóa thêm 1 lần nữa

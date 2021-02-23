@@ -23,10 +23,6 @@ public class HomeController {
     private HomeService homeService;
 
     @Autowired
-    private UserService userService;
-//    @Autowired
-//    private JwtUtil jwtUtil;
-    @Autowired
     private ReviewService reviewService;
 
 
