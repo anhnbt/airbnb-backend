@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("api/review")
+@RequestMapping("api/v1/review")
 @CrossOrigin("*")
 public class ReviewController {
 
@@ -27,7 +27,7 @@ public class ReviewController {
     public Response findAll() {
         res.setData(reviewService.findAll());
         res.setStatus(HttpStatus.OK);
-        res.setMessage("SUCCESS");
+        res.setMessage("success");
         return res;
     }
 
@@ -35,7 +35,7 @@ public class ReviewController {
     public Response findById(@PathVariable Long id) {
         res.setData(reviewService.findById(id).get());
         res.setStatus(HttpStatus.OK);
-        res.setMessage("SUCCESS");
+        res.setMessage("success");
         return res;
     }
 
@@ -43,7 +43,7 @@ public class ReviewController {
     public Response findByRoomIdQuery(@PathVariable Long id) {
         res.setData(reviewService.findByRoomIdQuery(id));
         res.setStatus(HttpStatus.OK);
-        res.setMessage("SUCCESS");
+        res.setMessage("success");
         return res;
     }
 
@@ -51,11 +51,11 @@ public class ReviewController {
     public Response findAvgRattingByRoomIdQuery(@PathVariable Long id) {
         res.setData(reviewService.findAvgByRoomIdQuery(id));
         res.setStatus(HttpStatus.OK);
-        res.setMessage("SUCCESS");
+        res.setMessage("success");
         return res;
     }
 
-    @PostMapping()
+    @PostMapping
     public Response save(@RequestBody Review review) {
         Optional<Booking> booking = bookingService.findById(review.getBooking().getId());
         if (booking.isPresent()) {
@@ -69,7 +69,7 @@ public class ReviewController {
             Review reviewSave = reviewService.save(newReview);
             res.setData(reviewSave);
             res.setStatus(HttpStatus.OK);
-            res.setMessage("SUCCESS");
+            res.setMessage("success");
         } else {
             res.setData(null);
             res.setStatus(HttpStatus.NOT_FOUND);

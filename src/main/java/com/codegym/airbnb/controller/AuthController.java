@@ -1,32 +1,25 @@
 package com.codegym.airbnb.controller;
 
-import com.codegym.airbnb.security.JwtUtil;
 import com.codegym.airbnb.model.*;
+import com.codegym.airbnb.security.JwtUtil;
 import com.codegym.airbnb.services.RoleService;
 import com.codegym.airbnb.services.UserService;
 import com.codegym.airbnb.services.impl.JwtService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
-import javax.swing.text.html.Option;
 import java.time.LocalDateTime;
 import java.util.*;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.HashSet;
-import java.util.Optional;
-import java.util.Set;
 
 @RestController
-@RequestMapping("api/v1/users")
+@RequestMapping("api/v1/auth")
 @CrossOrigin("*")
 public class AuthController {
     @Autowired
@@ -42,17 +35,13 @@ public class AuthController {
     private RoleService roleService;
 
     @PostMapping("register")
-    public ResponseEntity registerUser(@RequestBody UserModel user) {
+    public ResponseEntity<?> register(@RequestBody UserModel user) {
         if (userService.existsByUsername(user.getUsername())) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-        System.out.println(1);
         user.setActive(true);
         user.setCreatedDate(LocalDateTime.now());
         user.setModifiedDate(LocalDateTime.now());
-//        newUser.setPassword("123456"); // Lỗi ở dòng này chứ đâu
-//        // Khi user post register lên thì mật khẩu đã bị mã hóa rồi
-//        // Sau khi setPassword tiếp lần nữa thì nó lại mã hóa thêm 1 lần nữa
         user.setName(user.getUsername());
         Set<Role> roles = new HashSet<>();
         user.getRoles().forEach(role -> {
@@ -66,7 +55,7 @@ public class AuthController {
         });
         user.setRoles(roles);
         userService.save(user);
-        return new ResponseEntity(HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @PostMapping("login")
