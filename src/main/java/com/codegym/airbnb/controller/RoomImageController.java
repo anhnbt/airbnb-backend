@@ -11,7 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("api/images")
+@RequestMapping("api/v1/images")
 @CrossOrigin("*")
 public class RoomImageController {
     @Autowired

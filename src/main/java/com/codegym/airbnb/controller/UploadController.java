@@ -1,9 +1,8 @@
 package com.codegym.airbnb.controller;
 
-import com.codegym.airbnb.model.ImageUpload;
 import com.codegym.airbnb.model.Response;
-import com.codegym.airbnb.model.RoomImage;
 import com.codegym.airbnb.model.Room;
+import com.codegym.airbnb.model.RoomImage;
 import com.codegym.airbnb.repositories.HomeRepository;
 import com.codegym.airbnb.services.RoomImageService;
 import com.codegym.airbnb.storage.StorageException;
@@ -15,7 +14,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
 
 import java.util.stream.Collectors;

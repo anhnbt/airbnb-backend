@@ -19,7 +19,7 @@ public class HomeServiceImpl implements HomeService {
     }
 
     @Override
-    public Iterable<Room> findAllByCityId(int id) {
+    public Iterable<Room> findAllByProvinceId(int id) {
         return homeRepository.findAllRoomByProvinceId(id);
     }
 
