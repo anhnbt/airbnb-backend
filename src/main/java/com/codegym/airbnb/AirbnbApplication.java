@@ -2,8 +2,8 @@ package com.codegym.airbnb;
 
 import com.codegym.airbnb.model.Role;
 import com.codegym.airbnb.model.UserModel;
-import com.codegym.airbnb.services.RoleService;
-import com.codegym.airbnb.services.UserService;
+import com.codegym.airbnb.service.RoleService;
+import com.codegym.airbnb.service.UserService;
 import com.codegym.airbnb.storage.StorageProperties;
 import com.codegym.airbnb.storage.StorageService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,30 +40,35 @@ public class AirbnbApplication {
 
     @PostConstruct
     public void init() {
-        List<UserModel> users = (List<UserModel>) userService.findAll();
-        List<Role> roleList = (List<Role>) roleService.findAll();
-        if (roleList.isEmpty()) {
-            Role roleAdmin = new Role();
-            roleAdmin.setId(1L);
-            roleAdmin.setName("ROLE_ADMIN");
-            roleService.save(roleAdmin);
-            Role roleUser = new Role();
-            roleUser.setId(2L);
-            roleUser.setName("ROLE_USER");
-            roleService.save(roleUser);
-        }
-        if (users.isEmpty()) {
-            UserModel admin = new UserModel();
-            Set<Role> roles = new HashSet<>();
-            Role roleAdmin = new Role();
-            roleAdmin.setId(1L);
-            roleAdmin.setName("ROLE_ADMIN");
-            roles.add(roleAdmin);
-            admin.setName("admin");
-            admin.setUsername("admin");
-            admin.setPassword("123456");
-            admin.setRoles(roles);
-            userService.save(admin);
+        try {
+
+            List<UserModel> users = (List<UserModel>) userService.findAll();
+            List<Role> roleList = (List<Role>) roleService.findAll();
+            if (roleList.isEmpty()) {
+                Role roleAdmin = new Role();
+                roleAdmin.setId(1L);
+                roleAdmin.setName("ROLE_ADMIN");
+                roleService.save(roleAdmin);
+                Role roleUser = new Role();
+                roleUser.setId(2L);
+                roleUser.setName("ROLE_USER");
+                roleService.save(roleUser);
+            }
+            if (users.isEmpty()) {
+                UserModel admin = new UserModel();
+                Set<Role> roles = new HashSet<>();
+                Role roleAdmin = new Role();
+                roleAdmin.setId(1L);
+                roleAdmin.setName("ROLE_ADMIN");
+                roles.add(roleAdmin);
+                admin.setName("admin");
+                admin.setUsername("admin");
+                admin.setPassword("123456");
+                admin.setRoles(roles);
+                userService.save(admin);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 

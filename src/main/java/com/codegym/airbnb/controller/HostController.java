@@ -1,9 +1,9 @@
 package com.codegym.airbnb.controller;
 
-import com.codegym.airbnb.model.Response;
+import com.codegym.airbnb.response.Response;
 import com.codegym.airbnb.model.Room;
-import com.codegym.airbnb.services.HomeService;
-import com.codegym.airbnb.services.UserService;
+import com.codegym.airbnb.service.HomeService;
+import com.codegym.airbnb.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.context.SecurityContextHolder;

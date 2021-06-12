@@ -13,12 +13,12 @@ public abstract class AbstractEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
+    private Long id;
 
     @CreatedDate
-    LocalDateTime createdDate;
+    private LocalDateTime createdDate = LocalDateTime.now();
     @LastModifiedDate
-    LocalDateTime modifiedDate;
+    private LocalDateTime modifiedDate = LocalDateTime.now();
 
     public Long getId() {
         return id;

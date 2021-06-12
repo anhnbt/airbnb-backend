@@ -1,10 +1,12 @@
 package com.codegym.airbnb.controller;
 
 import com.codegym.airbnb.model.*;
-import com.codegym.airbnb.repositories.BookingRepository;
-import com.codegym.airbnb.repositories.RoomPaging;
-import com.codegym.airbnb.services.HomeService;
-import com.codegym.airbnb.services.UserService;
+import com.codegym.airbnb.repository.BookingRepository;
+import com.codegym.airbnb.repository.RoomPaging;
+import com.codegym.airbnb.request.LoginForm;
+import com.codegym.airbnb.response.Response;
+import com.codegym.airbnb.service.HomeService;
+import com.codegym.airbnb.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -57,47 +59,60 @@ public class UserController {
 
     @PutMapping("{id}")
     public Response updatePassword(@RequestBody LoginForm loginForm, @PathVariable Long id) {
-        Optional<UserModel> userModel = userService.findById(id);
-        if (userModel.isPresent()) {
-            userModel.get().setPassword(loginForm.getPassword());
-            userService.save(userModel.get());
-            res.setData(userModel);
-            res.setMessage("success");
-            res.setStatus(HttpStatus.OK);
-        } else {
-            res.setMessage("No user available");
-            res.setStatus(HttpStatus.NOT_FOUND);
+        try {
+            Optional<UserModel> userModel = userService.findById(id);
+            if (userModel.isPresent()) {
+                userModel.get().setPassword(loginForm.getPassword());
+                userService.save(userModel.get());
+                res.setData(userModel);
+                res.setMessage("success");
+                res.setStatus(HttpStatus.OK);
+            } else {
+                res.setMessage("No user available");
+                res.setStatus(HttpStatus.NOT_FOUND);
+            }
+            return res;
+        } catch (Exception e) {
+            return new Response(null, e.getMessage(), HttpStatus.OK);
         }
-        return res;
     }
 
     @PostMapping("{id}")
     public Response update(@RequestBody UserModel user, @PathVariable("id") Long id) {
-        Optional<UserModel> userModel = userService.findById(id);
-        if (userModel.isPresent()) {
-            userModel.get().setName(user.getName());
-            userModel.get().setDateOfBirth(user.getDateOfBirth());
-            userModel.get().setEmail(user.getEmail());
-            userModel.get().setPhone(user.getPhone());
-            userModel.get().setModifiedDate(LocalDateTime.now());
-            res.setData(userService.save(userModel.get()));
-            res.setMessage("success");
-            res.setStatus(HttpStatus.OK);
-        } else {
-            res.setData(null);
-            res.setMessage("Not Found");
-            res.setStatus(HttpStatus.NOT_FOUND);
+        try {
+
+            Optional<UserModel> userModel = userService.findById(id);
+            if (userModel.isPresent()) {
+                userModel.get().setName(user.getName());
+                userModel.get().setDateOfBirth(user.getDateOfBirth());
+                userModel.get().setEmail(user.getEmail());
+                userModel.get().setPhone(user.getPhone());
+                userModel.get().setModifiedDate(LocalDateTime.now());
+                res.setData(userService.save(userModel.get()));
+                res.setMessage("success");
+                res.setStatus(HttpStatus.OK);
+            } else {
+                res.setData(null);
+                res.setMessage("Not Found");
+                res.setStatus(HttpStatus.NOT_FOUND);
+            }
+            return res;
+        } catch (Exception e) {
+            return new Response(null, e.getMessage(), HttpStatus.OK);
         }
-        return res;
     }
 
     @PostMapping("/edit")
     public Response editUser(@RequestBody UserModel user) {
-        userService.save(user);
-        res.setData(user);
-        res.setStatus(HttpStatus.OK);
-        res.setMessage("SUCCESS");
-        return res;
+        try {
+            userService.save(user);
+            res.setData(user);
+            res.setStatus(HttpStatus.OK);
+            res.setMessage("SUCCESS");
+            return res;
+        } catch (Exception e) {
+            return new Response(null, e.getMessage(), HttpStatus.OK);
+        }
     }
 
     @GetMapping("/{id}/rooms")

@@ -41,7 +41,7 @@ public class UserModel extends AbstractEntity implements Serializable {
     //    @Pattern(regexp = "\"^[\\\\+]?[(]?[0-9]{3}[)]?[-\\\\s\\\\.]?[0-9]{3}[-\\\\s\\\\.]?[0-9]{4,6}$\"" )
     private String phone;
 
-    private Boolean active;
+    private Boolean active = true;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
@@ -50,6 +50,9 @@ public class UserModel extends AbstractEntity implements Serializable {
             inverseJoinColumns = {@JoinColumn(name = "role_id")}
     )
     private Set<Role> roles;
+
+    @Transient
+    private String token;
 
     public static PasswordEncoder getPasswordEncoder() {
         return PASSWORD_ENCODER;
@@ -134,6 +137,14 @@ public class UserModel extends AbstractEntity implements Serializable {
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 
     @Override

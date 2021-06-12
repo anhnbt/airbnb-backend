@@ -1,10 +1,10 @@
 package com.codegym.airbnb.controller;
 
-import com.codegym.airbnb.model.Response;
+import com.codegym.airbnb.response.Response;
 import com.codegym.airbnb.model.Room;
 import com.codegym.airbnb.model.RoomImage;
-import com.codegym.airbnb.repositories.HomeRepository;
-import com.codegym.airbnb.services.RoomImageService;
+import com.codegym.airbnb.repository.HomeRepository;
+import com.codegym.airbnb.service.RoomImageService;
 import com.codegym.airbnb.storage.StorageException;
 import com.codegym.airbnb.storage.StorageService;
 import org.slf4j.Logger;

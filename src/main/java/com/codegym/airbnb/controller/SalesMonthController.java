@@ -3,18 +3,15 @@ package com.codegym.airbnb.controller;
 
 import com.codegym.airbnb.model.Booking;
 import com.codegym.airbnb.model.BookingStatus;
-import com.codegym.airbnb.model.Response;
-import com.codegym.airbnb.repositories.BookingOfCus;
+import com.codegym.airbnb.response.Response;
+import com.codegym.airbnb.repository.BookingOfCus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 
 
