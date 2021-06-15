@@ -14,8 +14,10 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.time.LocalDateTime;
 import java.util.Locale;
 import java.util.Optional;
@@ -39,8 +41,11 @@ public class AuthController {
     private MessageSource messageSource;
 
     @PostMapping("register")
-    public Response register(@RequestBody UserModel user) {
+    public Response register(@RequestBody @Valid UserModel user, BindingResult bindingResult) {
         try {
+            if (bindingResult.hasErrors()) {
+                return new Response(null, messageSource.getMessage("validators.bindException", new Object[]{user.getUsername()}, Locale.getDefault()), HttpStatus.BAD_REQUEST);
+            }
             UserModel userModel = userService.save(user);
             return new Response(userModel, messageSource.getMessage("message.inserted", new Object[]{user.getUsername()}, Locale.getDefault()), HttpStatus.CREATED);
         } catch (Exception e) {
