@@ -1,9 +1,10 @@
 package com.codegym.airbnb;
 
-import com.codegym.airbnb.model.Role;
-import com.codegym.airbnb.model.UserModel;
-import com.codegym.airbnb.service.RoleService;
-import com.codegym.airbnb.service.UserService;
+import com.codegym.airbnb.constants.Constants;
+import com.codegym.airbnb.entities.Role;
+import com.codegym.airbnb.entities.UserModel;
+import com.codegym.airbnb.services.RoleService;
+import com.codegym.airbnb.services.UserService;
 import com.codegym.airbnb.storage.StorageProperties;
 import com.codegym.airbnb.storage.StorageService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,11 +48,11 @@ public class AirbnbApplication {
             if (roleList.isEmpty()) {
                 Role roleAdmin = new Role();
                 roleAdmin.setId(1L);
-                roleAdmin.setName("ROLE_ADMIN");
+                roleAdmin.setName(Constants.Roles.ROLE_ADMIN);
                 roleService.save(roleAdmin);
                 Role roleUser = new Role();
                 roleUser.setId(2L);
-                roleUser.setName("ROLE_USER");
+                roleUser.setName(Constants.Roles.ROLE_USER);
                 roleService.save(roleUser);
             }
             if (users.isEmpty()) {
@@ -59,7 +60,7 @@ public class AirbnbApplication {
                 Set<Role> roles = new HashSet<>();
                 Role roleAdmin = new Role();
                 roleAdmin.setId(1L);
-                roleAdmin.setName("ROLE_ADMIN");
+                roleAdmin.setName(Constants.Roles.ROLE_ADMIN);
                 roles.add(roleAdmin);
                 admin.setName("admin");
                 admin.setUsername("admin");

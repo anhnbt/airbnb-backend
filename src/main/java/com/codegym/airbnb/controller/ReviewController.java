@@ -1,10 +1,10 @@
 package com.codegym.airbnb.controller;
 
-import com.codegym.airbnb.model.Booking;
+import com.codegym.airbnb.entities.Booking;
 import com.codegym.airbnb.response.Response;
-import com.codegym.airbnb.model.Review;
-import com.codegym.airbnb.service.BookingService;
-import com.codegym.airbnb.service.ReviewService;
+import com.codegym.airbnb.entities.Review;
+import com.codegym.airbnb.services.BookingService;
+import com.codegym.airbnb.services.ReviewService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;

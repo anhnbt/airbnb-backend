@@ -1,5 +1,6 @@
 package com.codegym.airbnb.security;
 
+import com.codegym.airbnb.constants.Constants;
 import io.jsonwebtoken.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,13 +15,6 @@ import java.util.function.Function;
 @Service
 public class JwtUtil {
 
-    Logger logger = LoggerFactory.getLogger(JwtUtil.class);
-
-    // Đoạn JWT_SECRET này là bí mật, chỉ có phía server biết
-    private final String JWT_SECRET = "anhnbt";
-    //Thời gian có hiệu lực của chuỗi jwt
-    private final long JWT_EXPIRATION = 1000 * 60 * 60 * 10; // 10h
-
     public String extractUsername(String token) {
         return extractClaim(token, Claims::getSubject);
     }
@@ -34,7 +28,7 @@ public class JwtUtil {
         return claimsResolver.apply(claims);
     }
     private Claims extractAllClaims(String token) {
-        return Jwts.parser().setSigningKey(JWT_SECRET).parseClaimsJws(token).getBody();
+        return Jwts.parser().setSigningKey(Constants.JWT_SECRET_KEY).parseClaimsJws(token).getBody();
     }
 
     private Boolean isTokenExpired(String token) {
@@ -49,8 +43,8 @@ public class JwtUtil {
     private String createToken(Map<String, Object> claims, String subject) {
 
         return Jwts.builder().setClaims(claims).setSubject(subject).setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + JWT_EXPIRATION))
-                .signWith(SignatureAlgorithm.HS256, JWT_SECRET).compact();
+                .setExpiration(new Date(System.currentTimeMillis() + Constants.JWT_EXPIRATION))
+                .signWith(SignatureAlgorithm.HS256, Constants.JWT_SECRET_KEY).compact();
     }
 
     public Boolean validateToken(String token, UserDetails userDetails) {

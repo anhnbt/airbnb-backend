@@ -1,12 +1,12 @@
 package com.codegym.airbnb.controller;
 
-import com.codegym.airbnb.model.UserModel;
+import com.codegym.airbnb.entities.UserModel;
 import com.codegym.airbnb.request.LoginForm;
 import com.codegym.airbnb.request.LoginGoogle;
 import com.codegym.airbnb.response.JwtResponse;
 import com.codegym.airbnb.response.Response;
 import com.codegym.airbnb.security.JwtUtil;
-import com.codegym.airbnb.service.UserService;
+import com.codegym.airbnb.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;

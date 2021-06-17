@@ -1,12 +1,12 @@
 package com.codegym.airbnb.controller;
 
-import com.codegym.airbnb.model.*;
-import com.codegym.airbnb.repository.BookingRepository;
-import com.codegym.airbnb.repository.RoomPaging;
+import com.codegym.airbnb.entities.*;
+import com.codegym.airbnb.repositories.BookingRepository;
+import com.codegym.airbnb.repositories.RoomPaging;
 import com.codegym.airbnb.request.LoginForm;
 import com.codegym.airbnb.response.Response;
-import com.codegym.airbnb.service.HomeService;
-import com.codegym.airbnb.service.UserService;
+import com.codegym.airbnb.services.HomeService;
+import com.codegym.airbnb.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -86,7 +86,7 @@ public class UserController {
                 userModel.get().setName(user.getName());
                 userModel.get().setDateOfBirth(user.getDateOfBirth());
                 userModel.get().setEmail(user.getEmail());
-                userModel.get().setPhone(user.getPhone());
+                userModel.get().setPhoneNumber(user.getPhoneNumber());
                 userModel.get().setModifiedDate(LocalDateTime.now());
                 res.setData(userService.save(userModel.get()));
                 res.setMessage("success");

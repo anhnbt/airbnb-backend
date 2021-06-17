@@ -1,7 +1,7 @@
 package com.codegym.airbnb;
 
-import com.codegym.airbnb.model.UserModel;
-import com.codegym.airbnb.service.UserService;
+import com.codegym.airbnb.entities.UserModel;
+import com.codegym.airbnb.services.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +27,7 @@ public class DatabaseLoader implements CommandLineRunner {
 			user.setUsername("anhnbt");
 			user.setEmail("anhnbt@icloud.com");
 			user.setPassword("123456");
-			user.setPhone("+84346868928");
+			user.setPhoneNumber("+84346868928");
 			user.setDateOfBirth(LocalDate.now());
 			user.setGender((byte) 1);
 			user.setActive(true);

@@ -1,10 +1,10 @@
 package com.codegym.airbnb.controller;
 
 
-import com.codegym.airbnb.model.Booking;
-import com.codegym.airbnb.model.BookingStatus;
+import com.codegym.airbnb.entities.Booking;
+import com.codegym.airbnb.entities.BookingStatus;
 import com.codegym.airbnb.response.Response;
-import com.codegym.airbnb.repository.BookingOfCus;
+import com.codegym.airbnb.repositories.BookingOfCus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
