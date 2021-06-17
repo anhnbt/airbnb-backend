@@ -49,7 +49,7 @@ public class BookingController {
             @PathVariable("roomId") Long roomId,
             @PathVariable("userId") Long userId,
             @RequestBody Booking booking) {
-        UserModel user = userService.findById(userId).orElseThrow(() -> new UserNotFoundException(userId));
+        UserInfo user = userService.findById(userId).orElseThrow(() -> new UserNotFoundException(userId));
         Room room = homeService.findById(roomId).orElseThrow(() -> new RoomNotFoundException(roomId));
         Optional<Booking> oldBooking = bookingService.findByStartDateAndUserIdAndRoomId(userId, roomId, booking.getStartDate());
         if (oldBooking.isPresent()) {

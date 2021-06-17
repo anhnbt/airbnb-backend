@@ -1,23 +1,23 @@
 package com.codegym.airbnb.services;
 
-import com.codegym.airbnb.entities.UserModel;
+import com.codegym.airbnb.entities.UserInfo;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
 import java.util.Optional;
 
 public interface UserService extends UserDetailsService {
 
-    Iterable<UserModel> findAll();
+    Iterable<UserInfo> findAll();
 
-    Optional<UserModel> findById(Long id);
+    Optional<UserInfo> findById(Long id);
 
-    Optional<UserModel> findByNameAndPassword(String name, String password);
+    Optional<UserInfo> findByNameAndPassword(String name, String password);
 
-    Optional<UserModel> findByEmail(String email);
+    Optional<UserInfo> findByEmail(String email);
 
-    UserModel save(UserModel user) throws Exception;
+    UserInfo save(UserInfo user) throws Exception;
 
-    Optional<UserModel> findByUserName(String username);
+    Optional<UserInfo> findByUserName(String username);
 
     boolean existsByUsername(String username);
 }

@@ -23,7 +23,7 @@ public class CustomUserDetails implements UserDetails {
         this.roles = roles;
     }
 
-    public static CustomUserDetails build(UserModel user) {
+    public static CustomUserDetails build(UserInfo user) {
         List<GrantedAuthority> authorities = user.getRoles().stream().map(role ->
                 new SimpleGrantedAuthority(role.getName())
         ).collect(Collectors.toList());

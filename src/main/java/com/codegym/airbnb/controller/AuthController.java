@@ -1,6 +1,6 @@
 package com.codegym.airbnb.controller;
 
-import com.codegym.airbnb.entities.UserModel;
+import com.codegym.airbnb.entities.UserInfo;
 import com.codegym.airbnb.request.LoginForm;
 import com.codegym.airbnb.request.LoginGoogle;
 import com.codegym.airbnb.response.JwtResponse;
@@ -41,13 +41,13 @@ public class AuthController {
     private MessageSource messageSource;
 
     @PostMapping("register")
-    public Response register(@RequestBody @Valid UserModel user, BindingResult bindingResult) {
+    public Response register(@RequestBody @Valid UserInfo user, BindingResult bindingResult) {
         try {
             if (bindingResult.hasErrors()) {
                 return new Response(null, messageSource.getMessage("validators.bindException", new Object[]{user.getUsername()}, Locale.getDefault()), HttpStatus.BAD_REQUEST);
             }
-            UserModel userModel = userService.save(user);
-            return new Response(userModel, messageSource.getMessage("message.inserted", new Object[]{user.getUsername()}, Locale.getDefault()), HttpStatus.CREATED);
+            UserInfo userInfo = userService.save(user);
+            return new Response(userInfo, messageSource.getMessage("message.inserted", new Object[]{user.getUsername()}, Locale.getDefault()), HttpStatus.CREATED);
         } catch (Exception e) {
             return new Response(null, e.getMessage(), HttpStatus.CONFLICT);
         }
@@ -59,7 +59,7 @@ public class AuthController {
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginForm.getUsername(), loginForm.getPassword()));
             // Trả về jwt cho người dùng.
             String jwt = jwtUtil.generateToken(loginForm.getUsername());
-            Optional<UserModel> user = userService.findByUserName(loginForm.getUsername());
+            Optional<UserInfo> user = userService.findByUserName(loginForm.getUsername());
             if (user.isPresent()) {
                 user.get().setToken(jwt);
 //                UserDetails userDetails = userService.loadUserByUsername(loginForm.getUsername());
@@ -75,10 +75,10 @@ public class AuthController {
     @PostMapping("login-with-google")
     public Response loginWithGoogle(@RequestBody LoginGoogle loginGoogle) {
         try {
-            Optional<UserModel> userModel = userService.findByEmail(loginGoogle.getEmail());
+            Optional<UserInfo> userModel = userService.findByEmail(loginGoogle.getEmail());
             // Trả về jwt cho người dùng.
             if (!userModel.isPresent()) {
-                UserModel user = new UserModel();
+                UserInfo user = new UserInfo();
                 user.setName(loginGoogle.getName());
                 user.setUsername(extractUsername(loginGoogle.getEmail()));
                 user.setPassword(generatingRandomPassword());
@@ -86,7 +86,7 @@ public class AuthController {
                 user.setCreatedDate(LocalDateTime.now());
                 user.setModifiedDate(LocalDateTime.now());
                 user.setActive(true);
-                UserModel newUser = userService.save(user);
+                UserInfo newUser = userService.save(user);
                 System.out.println(newUser.toString());
                 String jwt = jwtUtil.generateToken(newUser.getUsername());
                 UserDetails userDetails = userService.loadUserByUsername(newUser.getUsername());

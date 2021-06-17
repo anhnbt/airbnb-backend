@@ -60,7 +60,7 @@ public class UserController {
     @PutMapping("{id}")
     public Response updatePassword(@RequestBody LoginForm loginForm, @PathVariable Long id) {
         try {
-            Optional<UserModel> userModel = userService.findById(id);
+            Optional<UserInfo> userModel = userService.findById(id);
             if (userModel.isPresent()) {
                 userModel.get().setPassword(loginForm.getPassword());
                 userService.save(userModel.get());
@@ -78,10 +78,10 @@ public class UserController {
     }
 
     @PostMapping("{id}")
-    public Response update(@RequestBody UserModel user, @PathVariable("id") Long id) {
+    public Response update(@RequestBody UserInfo user, @PathVariable("id") Long id) {
         try {
 
-            Optional<UserModel> userModel = userService.findById(id);
+            Optional<UserInfo> userModel = userService.findById(id);
             if (userModel.isPresent()) {
                 userModel.get().setName(user.getName());
                 userModel.get().setDateOfBirth(user.getDateOfBirth());
@@ -103,7 +103,7 @@ public class UserController {
     }
 
     @PostMapping("/edit")
-    public Response editUser(@RequestBody UserModel user) {
+    public Response editUser(@RequestBody UserInfo user) {
         try {
             userService.save(user);
             res.setData(user);

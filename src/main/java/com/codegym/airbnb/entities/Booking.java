@@ -39,7 +39,7 @@ public class Booking extends AbstractEntity implements Serializable {
     @ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id", nullable = false, updatable = false)
 //    @JsonIgnore
-    private UserModel user;
+    private UserInfo user;
 
     public List<Review> getReviews() {
         return reviews;
@@ -106,11 +106,11 @@ public class Booking extends AbstractEntity implements Serializable {
         this.status = status;
     }
 
-    public UserModel getUser() {
+    public UserInfo getUser() {
         return user;
     }
 
-    public void setUser(UserModel user) {
+    public void setUser(UserInfo user) {
         this.user = user;
     }
 

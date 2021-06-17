@@ -1,6 +1,6 @@
 package com.codegym.airbnb;
 
-import com.codegym.airbnb.entities.UserModel;
+import com.codegym.airbnb.entities.UserInfo;
 import com.codegym.airbnb.services.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,7 +22,7 @@ public class DatabaseLoader implements CommandLineRunner {
 	@Override
 	public void run(String... strings) throws Exception {
 		if (!userService.findByEmail("anhnbt@icloud.com").isPresent()) {
-			UserModel user = new UserModel();
+			UserInfo user = new UserInfo();
 			user.setName("Nguyen Ba Tuan Anh");
 			user.setUsername("anhnbt");
 			user.setEmail("anhnbt@icloud.com");

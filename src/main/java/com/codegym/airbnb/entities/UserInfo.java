@@ -16,7 +16,7 @@ import java.util.Set;
 @Entity
 @Table(name = "users")
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class UserModel extends AbstractEntity implements Serializable {
+public class UserInfo extends AbstractEntity implements Serializable {
 
     public static final PasswordEncoder PASSWORD_ENCODER = new BCryptPasswordEncoder();
 
@@ -58,10 +58,10 @@ public class UserModel extends AbstractEntity implements Serializable {
         return PASSWORD_ENCODER;
     }
 
-    public UserModel() {
+    public UserInfo() {
     }
 
-    public UserModel(@NotNull @Size(min = 3) String name, String username, @Email String email) {
+    public UserInfo(@NotNull @Size(min = 3) String name, String username, @Email String email) {
         this.name = name;
         this.username = username;
         this.email = email;

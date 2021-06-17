@@ -32,7 +32,7 @@ public class Room extends AbstractEntity implements Serializable {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false, updatable = false)
-    private UserModel user;
+    private UserInfo user;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "province_id", nullable = false, updatable = false)
@@ -101,11 +101,11 @@ public class Room extends AbstractEntity implements Serializable {
         this.totalOfBathroom = totalOfBathroom;
     }
 
-    public UserModel getUser() {
+    public UserInfo getUser() {
         return user;
     }
 
-    public void setUser(UserModel user) {
+    public void setUser(UserInfo user) {
         this.user = user;
     }
 

@@ -1,7 +1,7 @@
 package com.codegym.airbnb.services;
 
 import com.codegym.airbnb.entities.Role;
-import com.codegym.airbnb.entities.UserModel;
+import com.codegym.airbnb.entities.UserInfo;
 import com.codegym.airbnb.repositories.UserRepository;
 import org.springframework.context.MessageSource;
 import org.springframework.security.core.userdetails.User;
@@ -27,27 +27,27 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Iterable<UserModel> findAll() {
+    public Iterable<UserInfo> findAll() {
         return userRepository.findAll();
     }
 
     @Override
-    public Optional<UserModel> findById(Long id) {
+    public Optional<UserInfo> findById(Long id) {
         return userRepository.findById(id);
     }
 
     @Override
-    public Optional<UserModel> findByNameAndPassword(String name, String password) {
+    public Optional<UserInfo> findByNameAndPassword(String name, String password) {
         return userRepository.findByNameAndPassword(name, password);
     }
 
     @Override
-    public Optional<UserModel> findByEmail(String email) {
+    public Optional<UserInfo> findByEmail(String email) {
         return userRepository.findByEmail(email);
     }
 
     @Override
-    public Optional<UserModel> findByUserName(String username) {
+    public Optional<UserInfo> findByUserName(String username) {
         return userRepository.findByUsername(username);
     }
 
@@ -57,7 +57,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserModel save(UserModel user) throws Exception {
+    public UserInfo save(UserInfo user) throws Exception {
         if (this.existsByUsername(user.getUsername())) {
             throw new RuntimeException(messageSource.getMessage("validators.username.exists", new Object[] {user.getUsername()}, Locale.getDefault()));
         }
@@ -78,7 +78,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Optional<UserModel> user = userRepository.findByUsername(username);
+        Optional<UserInfo> user = userRepository.findByUsername(username);
         if (!user.isPresent()) {
             throw new UsernameNotFoundException(username);
         }

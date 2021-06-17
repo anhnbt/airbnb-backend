@@ -1,17 +1,17 @@
 package com.codegym.airbnb.repositories;
 
-import com.codegym.airbnb.entities.UserModel;
+import com.codegym.airbnb.entities.UserInfo;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.Optional;
 
-public interface UserRepository extends CrudRepository<UserModel, Long> {
+public interface UserRepository extends CrudRepository<UserInfo, Long> {
 
-    Optional<UserModel> findByNameAndPassword(String name, String password);
+    Optional<UserInfo> findByNameAndPassword(String name, String password);
 
-    Optional<UserModel> findByEmail(String email);
+    Optional<UserInfo> findByEmail(String email);
 
-    Optional<UserModel> findByUsername(String username);
+    Optional<UserInfo> findByUsername(String username);
 
     boolean existsByUsername(String username);
 
