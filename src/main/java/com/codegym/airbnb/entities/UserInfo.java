@@ -35,7 +35,7 @@ public class UserInfo extends AbstractEntity implements Serializable {
     @Pattern(regexp = "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{6,}$")
     private String password;
 
-    private Byte gender;
+    private Boolean gender;
     private LocalDate dateOfBirth;
 
     //    @Pattern(regexp = "\"^[\\\\+]?[(]?[0-9]{3}[)]?[-\\\\s\\\\.]?[0-9]{3}[-\\\\s\\\\.]?[0-9]{4,6}$\"" )
@@ -99,11 +99,11 @@ public class UserInfo extends AbstractEntity implements Serializable {
         this.password = PASSWORD_ENCODER.encode(password);
     }
 
-    public Byte getGender() {
+    public Boolean getGender() {
         return gender;
     }
 
-    public void setGender(Byte gender) {
+    public void setGender(Boolean gender) {
         this.gender = gender;
     }
 
