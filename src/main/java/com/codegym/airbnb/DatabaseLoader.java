@@ -1,6 +1,6 @@
 package com.codegym.airbnb;
 
-import com.codegym.airbnb.constants.Constants;
+import com.codegym.airbnb.common.Constants;
 import com.codegym.airbnb.entities.Role;
 import com.codegym.airbnb.entities.UserInfo;
 import com.codegym.airbnb.services.RoleService;
@@ -14,7 +14,6 @@ import org.springframework.stereotype.Component;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.HashSet;
-import java.util.Optional;
 import java.util.Set;
 
 @Component

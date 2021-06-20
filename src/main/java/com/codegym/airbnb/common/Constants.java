@@ -1,4 +1,4 @@
-package com.codegym.airbnb.constants;
+package com.codegym.airbnb.common;
 
 public class Constants {
     public final static String JWT_SECRET_KEY = "ANHNBT";
